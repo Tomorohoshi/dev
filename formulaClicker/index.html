@@ -13,53 +13,52 @@
 		gtag('config', 'G-G3VRHWGPB7');
 	</script>
 
-	<!-- MathJax:
-		I used MathJax(https://www.mathjax.org/).
-		Thank you for MathJax.
-	-->
-	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.css" integrity="sha384-DLNWBifkkOES5azVMtIZ7RYukF2HBwDMBcPyDl6VnXTdJKlv5aO1s6mnOLE0QUyP" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.js" integrity="sha384-SReR3XDzHJ+xHgprjPZ5oBp+3gHv4arv/iWnz2PGnkUH8lAYzPIIxY0C+I6F2G/o" crossorigin="anonymous"></script>
 
 	<title>Mathematical Clicker</title>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div id="pinnedValParent" class="formula">
-		<span id="tPinned">\(t=0\)</span>
-		<span id="sPinned">\(s=0\)</span>
+	<div id="pinnedValParent">
+		<span id="tPinned" class="formula">t=0</span>
+		<span id="sPinned" class="formula">s=0</span>
 	</div>
-	<h1 id="mainFormula" class="formula">
-		\(s=\)
+	<h1 id="mainFormula">
+		<span class="formula">s=</span>
 		<span id="m"><!-- m="multiplier" スコアの倍率(最初は表示されない) -->
-			\(m\!\!\)
-			<span>\(m=0\)</span>
+			<span class="formula">m\!\!</span>
+			<span class="label formula">m=0</span>
 		</span>
 		<span id="t"><!-- t="time" 経過した時間 この変数により、放置することでスコアが増えるようになる -->
-			\(\,t\)
-			<span>\(t=50\)</span>
+			<span class="formula">\,t</span>
+			<span class="label formula">t=50</span>
 		</span>
-		\(-\)
+		<span class="formula">-</span>
 		<span id="s_u"><!-- s_u="used_score" 何かに支払ったスコアの数 -->
-			\(s_u\)
-			<span>\(s_u=1000\)</span>
+			<span class="formula">s_u</span>
+			<span class="label formula">s_u=1000</span>
 		</span>
-		\(-\)
+		<span class="formula">-</span>
 		<span id="e_r"><!-- e="error" レベルを上げたことによって急に上がる誤差 -->
-			\(e_r\)
-			<span>\(e_r=0\)</span>
+			<span class="formula">e_r</span>
+			<span class="label formula">e_r=0</span>
 		</span>
 	</h1>
 	<div id="shop">
 		<button id="mShop">
 			<span class="left">
-				<span class="title">Unlock<span class="formula">\(~~m\)</span></span>
+				<span class="title">Unlock<span class="formula">~~m</span></span>
 				<br>
 				<span class="level">0</span>
 			</span>
 			</span>
-			<span class="right formula">
-				<span class="effect">\(m ← + 1\)</span>
+			<span class="right">
+				<span class="effect formula">m ← + 1</span>
 				<br>
-				<span class="cost">\(s_u ← + 5\)</span>
+				<span class="cost formula">s_u ← + 5</span>
 			</span>
 		</button>
 	</div>
