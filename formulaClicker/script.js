@@ -17,7 +17,11 @@ let shopData = {
 	}
 };
 
-query(".formula", true).forEach(f => katex.render(f.textContent, f));
+query(".formula", true).forEach(f => renderFormula(f.textContent, f)); // 数式を描画するための処理
+
+function renderFormula(content, target) {
+	katex.render(content, target);
+}
 
 function query(query, isAll=false) {return isAll ? document.querySelectorAll(query) : document.querySelector(query)};
 
@@ -25,8 +29,14 @@ function updateShop(shopName) {
 	const targetShopId = shopName + "Shop";
 	const targetShopData = shopData[shopName];
 	query(`#${targetShopId} .level`).innerHTML = targetShopData.level;
-	katex.render(`${shopName} ← + ${targetShopData.increase}`, query(`#${targetShopId} .effect`));
-	katex.render(`s_u ← + ${targetShopData.cost}`, query(`#${targetShopId} .cost`));
+	renderFormula(`${shopName} ← + ${targetShopData.increase}`, query(`#${targetShopId} .effect`));
+	renderFormula(`s_u ← + ${targetShopData.cost}`, query(`#${targetShopId} .cost`));
+}
+
+function updateMainFormula(targetId, customValue=null) {
+	const targetEl = el(targetId);
+	const value = Number((customValue ?? shopData[targetId].value).toFixed(3));
+	renderFormula(`${targetId}=${value}`, query(`#${targetId} .label`));
 }
 
 function buy(shop, val=1, doError=true) {
@@ -44,6 +54,9 @@ function buy(shop, val=1, doError=true) {
 						break;
 				}
 			}
+			updateMainFormula(shop.name);
+			updateMainFormula("s_u", usedScore);
+			updateMainFormula("e_r", scoreError);
 		} else {
 			break;
 		};
@@ -61,11 +74,13 @@ function update(currentTime) {
 		const timeDiffSec = (currentTime - animationStartedTime) / 1000;
 		time = timeDiffSec;
 		score = time * (shopData.m.value ?? 1) - usedScore - scoreError;
-		katex.render(`t=${time.toFixed(2)}`, el("tPinned"));
-		katex.render(`s=${score.toFixed(2)}`, el("sPinned"));
+		renderFormula(`t=${time.toFixed(2)}`, el("tPinned"));
+		renderFormula(`s=${score.toFixed(2)}`, el("sPinned"));
 		query("#shop>button", true).forEach(bt => {
 			const shop = shopData[bt.id.split("Shop")[0]];
-			bt.style.setProperty("--beforeWidth", Math.min(score / shop.cost, 1) * 100 + "%");
+			const scorePercent = Math.min(score / shop.cost, 1) * 100;
+			bt.style.setProperty("--beforeWidth", scorePercent + "%");
+			bt.style.opacity = scorePercent === 100 ? 1 : .5;
 		})
 	}
 
@@ -78,14 +93,16 @@ el("mShop").onclick = function() {
 	const shop = shopData.m;
 
 	if(shop.value == null) {
+		if(shop.cost > score) return;
 		el("m").style.display = "inline";
+		query("#mShop .title>:not(.formula)").innerHTML = "Upgrade";
 		buy(shop, 1, false);
 		shop.cost = 5;
 		shop.level = 1;
 		shop.value = 1;
-		shop.increase = .05;
+		shop.increase = .1;
 		updateShop(shop.name);
-		katex.render("~~m", query("#mShop .title .formula"));
+		renderFormula("~m", query("#mShop .title .formula"));
 	} else {
 		buy(shop);
 	}

@@ -29,12 +29,11 @@
 	<h1 id="mainFormula">
 		<span class="formula">s=</span>
 		<span id="m"><!-- m="multiplier" スコアの倍率(最初は表示されない) -->
-			<span class="formula">m\!\!</span>
+			<span class="formula">m\!</span>
 			<span class="label formula">m=0</span>
 		</span>
-		<span id="t"><!-- t="time" 経過した時間 この変数により、放置することでスコアが増えるようになる -->
-			<span class="formula">\,t</span>
-			<span class="label formula">t=50</span>
+		<span class="formula"><!-- t="time" 経過した時間 この変数により、放置することでスコアが増えるようになる -->
+			t
 		</span>
 		<span class="formula">-</span>
 		<span id="s_u"><!-- s_u="used_score" 何かに支払ったスコアの数 -->
@@ -50,7 +49,10 @@
 	<div id="shop">
 		<button id="mShop">
 			<span class="left">
-				<span class="title">Unlock<span class="formula">~~m</span></span>
+				<span class="title">
+					<span>Unlock</span>
+					<span class="formula">~m</span>
+				</span>
 				<br>
 				<span class="level">0</span>
 			</span>
