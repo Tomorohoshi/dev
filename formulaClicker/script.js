@@ -13,7 +13,7 @@ let shopData = {
 		value: null,
 		level: 0,
 		increase: 1,
-		costMultiplier: 1.15
+		costIncrease: ["+", 0]
 	}
 };
 
@@ -45,7 +45,19 @@ function buy(shop, val=1, doError=true) {
 			shop.value += shop.increase;
 			shop.level++;
 			usedScore += shop.cost;
-			shop.cost *= shop.costMultiplier;
+			// shop.cost *= shop.costMultiplier;
+			switch(shop.costIncrease[0]) {
+				case "+":
+					shop.cost += shop.costIncrease[1];
+					break;
+				case "*":
+						shop.cost *= shop.costIncrease[1];
+						break;
+				case "^":
+					shop.cost **= shop.costIncrease[1];
+					break;
+				default: break;
+			}
 			shop.cost = Number(shop.cost.toFixed(2));
 			if(doError) {
 				switch(shop.name) {
@@ -95,14 +107,15 @@ el("mShop").onclick = function() {
 	if(shop.value == null) {
 		if(shop.cost > score) return;
 		el("m").style.display = "inline";
-		query("#mShop .title>:not(.formula)").innerHTML = "Upgrade";
+		query("#mShop .title>:not(.formula)").innerHTML = "の値を増やす";
 		buy(shop, 1, false);
 		shop.cost = 5;
 		shop.level = 1;
 		shop.value = 1;
-		shop.increase = .1;
+		shop.increase = .2;
+		shop.costIncrease = ["^", 1.05];
 		updateShop(shop.name);
-		renderFormula("~m", query("#mShop .title .formula"));
+		renderFormula("m", query("#mShop .title .formula"));
 	} else {
 		buy(shop);
 	}
