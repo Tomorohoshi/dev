@@ -112,11 +112,24 @@ cursor: pointer;
 
 #tabBar>button {
 	display: inline-block;
+	position: relative;
+	width: 50px;
 	height: 50px;
 	text-align: center;
 	padding: 0;
 	background-color: transparent;
 	color: #fff;
 	border: 0;
-	outline: #af0 2px solid;
+	/* outline: #af0 2px solid; */
+
+	&>* {position: absolute;}
+	&>img {
+		top: 0;
+		left: 0;
+	}
+	&>span {
+		bottom: 0;
+		left: 50%;
+		translate: -50% 0;
+	}
 }
