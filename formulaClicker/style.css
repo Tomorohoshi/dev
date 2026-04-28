@@ -95,8 +95,8 @@ body {
 	input {display: none;}
 
 	&:has(input:checked) {
-		background-color: #555a;
-		translate: 0 10px;
+		background-color: #555;
+		translate: 0 5px;
 		border-radius: 10px 10px 0 0;
 	}
 }
@@ -104,16 +104,22 @@ body {
 #tab {
 	margin-top: 5px;
 	padding: 10px 10px;
-	background-color: #555a;
+	border: 0 solid white;
+	border-top-width: 2px;
 }
 
 #tab>div:not(#upgrade) {display: none; /* 初期値 */}
+
+#upgrade {
+	display: flex;
+	justify-content: space-evenly;
+}
 
 #upgrade>button {
 	position: relative;
 	display: flex;
 	justify-content: space-between;
-	width: 100%;
+	width: 500px;
 	font-size: 1.6rem;
 	padding: 5px 10px;
 	margin: 5px 0;

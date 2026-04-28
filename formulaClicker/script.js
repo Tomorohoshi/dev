@@ -126,7 +126,7 @@ query("#tabBar>label", true).forEach(e => {
 	e.onclick = function() {
 		const target = e.dataset.target;
 		query(`#${openingTab}`).style.display = "none";
-		query(`#${target}`).style.display = "block";
+		query(`#${target}`).style.display = "flex";
 		openingTab = target;
 	}
 });
