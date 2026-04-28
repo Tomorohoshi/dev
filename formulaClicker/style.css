@@ -101,13 +101,13 @@ cursor: pointer;
 	}
 }
 
-#shop {
+#upgrade {
 	margin-top: 5px;
 	padding: 10px 10px;
 	background-color: #555;
 }
 
-#shop>button {
+#upgrade>button {
 	position: relative;
 	display: flex;
 	justify-content: space-between;

@@ -6,7 +6,7 @@ let scoreError = 0; // e_r
 let animationStartedTime = null;
 let lastTime = 0;
 let updateInterval = 1000 / 30; // 30fps
-let shopData = {
+let upgradeData = {
 	m: {
 		name: "m",
 		cost: 5,
@@ -25,55 +25,55 @@ function renderFormula(content, target) {
 
 function query(query, isAll=false) {return isAll ? document.querySelectorAll(query) : document.querySelector(query)};
 
-function updateShop(shopName) {
-	const targetShopId = shopName + "Shop";
-	const targetShopData = shopData[shopName];
-	query(`#${targetShopId} .level`).innerHTML = targetShopData.level;
-	renderFormula(`${shopName} ← + ${targetShopData.increase}`, query(`#${targetShopId} .effect`));
-	renderFormula(`s_u ← + ${targetShopData.cost}`, query(`#${targetShopId} .cost`));
+function updateUpgrade(upgradeName) {
+	const targetUpgradeId = upgradeName + "Upgrade";
+	const targetUpgradeData = upgradeData[upgradeName];
+	query(`#${targetUpgradeId} .level`).innerHTML = targetUpgradeData.level;
+	renderFormula(`${upgradeName} ← + ${targetUpgradeData.increase}`, query(`#${targetUpgradeId} .effect`));
+	renderFormula(`s_u ← + ${targetUpgradeData.cost}`, query(`#${targetUpgradeId} .cost`));
 }
 
 function updateMainFormula(targetId, customValue=null) {
 	const targetEl = el(targetId);
-	const value = Number((customValue ?? shopData[targetId].value).toFixed(3));
+	const value = Number((customValue ?? upgradeData[targetId].value).toFixed(3));
 	renderFormula(`${targetId}=${value}`, query(`#${targetId} .label`));
 }
 
-function buy(shop, val=1, doError=true) {
+function buy(upgrade, val=1, doError=true) {
 	for(let i=0;i<val;i++) {
-		if(shop.cost <= score) {
-			shop.value += shop.increase;
-			shop.level++;
-			usedScore += shop.cost;
-			// shop.cost *= shop.costMultiplier;
-			switch(shop.costIncrease[0]) {
+		if(upgrade.cost <= score) {
+			upgrade.value += upgrade.increase;
+			upgrade.level++;
+			usedScore += upgrade.cost;
+			// upgrade.cost *= upgrade.costMultiplier;
+			switch(upgrade.costIncrease[0]) {
 				case "+":
-					shop.cost += shop.costIncrease[1];
+					upgrade.cost += upgrade.costIncrease[1];
 					break;
 				case "*":
-						shop.cost *= shop.costIncrease[1];
+						upgrade.cost *= upgrade.costIncrease[1];
 						break;
 				case "^":
-					shop.cost **= shop.costIncrease[1];
+					upgrade.cost **= upgrade.costIncrease[1];
 					break;
 				default: break;
 			}
-			shop.cost = Number(shop.cost.toFixed(2));
+			upgrade.cost = Number(upgrade.cost.toFixed(2));
 			if(doError) {
-				switch(shop.name) {
+				switch(upgrade.name) {
 					case "m":
-						scoreError += time * shop.increase;
+						scoreError += time * upgrade.increase;
 						break;
 				}
 			}
-			updateMainFormula(shop.name);
+			updateMainFormula(upgrade.name);
 			updateMainFormula("s_u", usedScore);
 			updateMainFormula("e_r", scoreError);
 		} else {
 			break;
 		};
 	};
-	updateShop(shop.name);
+	updateUpgrade(upgrade.name);
 }
 
 function update(currentTime) {
@@ -85,12 +85,12 @@ function update(currentTime) {
 		lastTime = currentTime - (delta % updateInterval);
 		const timeDiffSec = (currentTime - animationStartedTime) / 1000;
 		time = timeDiffSec;
-		score = time * (shopData.m.value ?? 1) - usedScore - scoreError;
+		score = time * (upgradeData.m.value ?? 1) - usedScore - scoreError;
 		renderFormula(`t=${time.toFixed(2)}`, el("tPinned"));
 		renderFormula(`s=${score.toFixed(2)}`, el("sPinned"));
-		query("#shop>button", true).forEach(bt => {
-			const shop = shopData[bt.id.split("Shop")[0]];
-			const scorePercent = Math.min(score / shop.cost, 1) * 100;
+		query("#upgrade>button", true).forEach(bt => {
+			const upgrade = upgradeData[bt.id.split("Upgrade")[0]];
+			const scorePercent = Math.min(score / upgrade.cost, 1) * 100;
 			bt.style.setProperty("--beforeWidth", scorePercent + "%");
 			bt.style.opacity = scorePercent === 100 ? 1 : .5;
 		})
@@ -101,30 +101,28 @@ function update(currentTime) {
 
 requestAnimationFrame(update);
 
-el("mShop").onclick = function() {
-	const shop = shopData.m;
+el("mUpgrade").onclick = function() {
+	const upgrade = upgradeData.m;
 
-	if(shop.value == null) {
-		if(shop.cost > score) return;
+	if(upgrade.value == null) {
+		if(upgrade.cost > score) return;
 		el("m").style.display = "inline";
-		query("#mShop .title>:not(.formula)").innerHTML = "の値を増やす";
-		buy(shop, 1, false);
-		shop.cost = 5;
-		shop.level = 1;
-		shop.value = 1;
-		shop.increase = .2;
-		shop.costIncrease = ["^", 1.05];
-		updateShop(shop.name);
-		renderFormula("m", query("#mShop .title .formula"));
+		query("#mUpgrade .title>:not(.formula)").innerHTML = "の値を増やす";
+		buy(upgrade, 1, false);
+		upgrade.cost = 5;
+		upgrade.level = 1;
+		upgrade.value = 1;
+		upgrade.increase = .2;
+		upgrade.costIncrease = ["*", 1.15];
+		updateUpgrade(upgrade.name);
+		renderFormula("m", query("#mUpgrade .title .formula"));
 	} else {
-		buy(shop);
+		buy(upgrade);
 	}
 }
 
 query("#tabBar>label", true).forEach(e => {
 	e.onclick = function() {
-		query("#tabBar>label").forEach(e2 => {
-			
-		})
+		
 	}
 });
