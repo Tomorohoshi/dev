@@ -66,7 +66,46 @@ cursor: pointer;
 
 #m {display: none; /* 初期値 */}
 
-#shop {margin: 10px 5px;}
+#tabBar {
+	width: calc(100% - 30px);
+	margin: 0 10px;
+	padding: 0 5px;
+	padding-top: 10px;
+}
+
+#tabBar>input {display: none;}
+
+#tabBar>label {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	padding: 3px 10px;
+	background-color: transparent;
+	color: #fff;
+	background-color: #333;
+	border-radius: 10px;
+	border: 0;
+	cursor: pointer;
+	transition: all .15s ease;
+
+	input {display: none;}
+
+	&:has(input:checked) {
+		background-color: #555;
+		translate: 0 10px;
+		border-radius: 10px 10px 0 0;
+	}
+}
+
+#shop {
+	margin-top: 5px;
+	padding: 10px 10px;
+	background-color: #555;
+}
 
 #shop>button {
 	position: relative;
@@ -95,41 +134,4 @@ cursor: pointer;
 
 	.left {text-align: left;}
 	.right {text-align: right;}
-}
-
-#tabBar {
-	display: flex;
-	justify-content: space-evenly;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 50px;
-	background-color: #333;
-	border-top: 1px solid #ccc;
-	z-index: 1;
-}
-
-#tabBar>button {
-	display: inline-block;
-	position: relative;
-	width: 50px;
-	height: 50px;
-	text-align: center;
-	padding: 0;
-	background-color: transparent;
-	color: #fff;
-	border: 0;
-	/* outline: #af0 2px solid; */
-
-	&>* {position: absolute;}
-	&>img {
-		top: 0;
-		left: 0;
-	}
-	&>span {
-		bottom: 0;
-		left: 50%;
-		translate: -50% 0;
-	}
 }

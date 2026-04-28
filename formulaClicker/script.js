@@ -62,7 +62,7 @@ function buy(shop, val=1, doError=true) {
 			if(doError) {
 				switch(shop.name) {
 					case "m":
-						scoreError += score * shop.increase;
+						scoreError += time * shop.increase;
 						break;
 				}
 			}
@@ -120,3 +120,11 @@ el("mShop").onclick = function() {
 		buy(shop);
 	}
 }
+
+query("#tabBar>label", true).forEach(e => {
+	e.onclick = function() {
+		query("#tabBar>label").forEach(e2 => {
+			
+		})
+	}
+});
