@@ -3,9 +3,10 @@ let score = 0; // s
 let time = 0; // t
 let usedScore = 0; // s_u
 let scoreError = 0; // e_r
-let animationStartedTime = null;
-let lastTime = 0;
-let updateInterval = 1000 / 30; // 30fps
+let animationStartedTime = null; // アニメーションの開始時間
+let lastTime = 0; // 更新用 最後に更新した時間
+let updateInterval = 1000 / 30; // 30fpsで更新
+let openingTab = "upgrade";
 let upgradeData = {
 	m: {
 		name: "m",
@@ -123,6 +124,9 @@ el("mUpgrade").onclick = function() {
 
 query("#tabBar>label", true).forEach(e => {
 	e.onclick = function() {
-		
+		const target = e.dataset.target;
+		query(`#${openingTab}`).style.display = "none";
+		query(`#${target}`).style.display = "block";
+		openingTab = target;
 	}
 });

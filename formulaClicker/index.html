@@ -47,32 +47,36 @@
 		</span>
 	</h1>
 	<div id="tabBar">
-		<label>
-			<input type="radio" name="tabBar" id="upgradeTab" checked>
+		<label data-target="upgrade">
+			<input type="radio" name="tabBar" checked>
 			<img src="data/upgrade.svg" width="35" height="35">
 		</label>
-		<label>
-			<input type="radio" name="tabBar" id="settingsTab">
+		<label data-target="settings">
+			<input type="radio" name="tabBar">
 			<img src="data/settings.svg" width="35" height="35">
 		</label>
 	</div>
-	<div id="upgrade">
-		<button id="mUpgrade">
-			<span class="left">
-				<span class="title">
-					<span class="formula">m</span>
-					<span>を解放する</span>
+	<div id="tab">
+		<div id="upgrade">
+			<button id="mUpgrade">
+				<span class="left">
+					<span class="title">
+						<span class="formula">m</span>
+						<span>を解放する</span>
+					</span>
+					<br>
+					<span class="level">0</span>
 				</span>
-				<br>
-				<span class="level">0</span>
-			</span>
-			</span>
-			<span class="right">
-				<span class="effect formula">t ← \times m</span>
-				<br>
-				<span class="cost formula">s_u ← + 5</span>
-			</span>
-		</button>
+				</span>
+				<span class="right">
+					<span class="effect formula">t ← \times m</span>
+					<br>
+					<span class="cost formula">s_u ← + 5</span>
+				</span>
+			</button>
+		</div>
+		<div id="settings">
+		</div>
 	</div>
 
 	<script src="script.js"></script>

@@ -2,11 +2,14 @@
 	from {background-color:#524a47;}
 	25%	 {background-color:#404238;}
 	50%	 {background-color:#3b3434;}
-	75% {background-color: #404050;}
+	75% {background-color: #40404a;}
 	to   {background-color:#524a47;}
 }
 
 body {
+	display: grid;
+	height: 100vh;
+	grid-template-rows: auto auto auto 1fr;
 	margin: 0;
 	animation: bgColor 40s linear infinite;
 }
@@ -23,9 +26,6 @@ body {
 
 #pinnedValParent {
 	display: flex;
-	position: fixed;
-	top: 0;
-	left: 0;
 	width: 100%;
 	font-size: 1.8rem;
 	justify-content: space-evenly;
@@ -36,14 +36,14 @@ body {
 }
 
 #mainFormula {
-	margin-top: 70px;
+	margin: 25px auto;
 	font-size: 50px;
 	text-align: center;
 }
 
 #mainFormula>span {
-position: relative;
-cursor: pointer;
+	position: relative;
+	cursor: pointer;
 }
 
 #mainFormula>span>.label {
@@ -95,17 +95,19 @@ cursor: pointer;
 	input {display: none;}
 
 	&:has(input:checked) {
-		background-color: #555;
+		background-color: #555a;
 		translate: 0 10px;
 		border-radius: 10px 10px 0 0;
 	}
 }
 
-#upgrade {
+#tab {
 	margin-top: 5px;
 	padding: 10px 10px;
-	background-color: #555;
+	background-color: #555a;
 }
+
+#tab>div:not(#upgrade) {display: none; /* 初期値 */}
 
 #upgrade>button {
 	position: relative;
