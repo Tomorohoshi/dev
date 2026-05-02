@@ -11,10 +11,10 @@ let upgradeData = {
 	m: {
 		name: "m",
 		cost: 5,
-		value: null,
+		value: null, // 1回買ったら1になる
 		level: 0,
-		increase: 1,
-		costIncrease: ["+", 0]
+		increase: 1, // 1回買ったら.2になる
+		costIncrease: ["+", 0] // 1回買ったら["*", 1.15]になる
 	}
 };
 

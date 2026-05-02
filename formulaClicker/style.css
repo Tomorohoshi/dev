@@ -8,7 +8,6 @@
 
 body {
 	display: grid;
-	height: 100vh;
 	grid-template-rows: auto auto auto 1fr;
 	margin: 0;
 	animation: bgColor 40s linear infinite;
@@ -103,7 +102,7 @@ body {
 
 #tab {
 	margin-top: 5px;
-	padding: 10px 10px;
+	padding: 10px 0;
 	border: 0 solid white;
 	border-top-width: 2px;
 }
@@ -113,11 +112,12 @@ body {
 #upgrade {
 	display: flex;
 	justify-content: space-evenly;
+	flex-wrap: wrap;
 }
 
 #upgrade>button {
 	position: relative;
-	display: flex;
+	display: inline-flex;
 	justify-content: space-between;
 	width: 500px;
 	font-size: 1.6rem;
