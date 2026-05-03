@@ -26,16 +26,6 @@ const japaneseNum = [
 	[1][1]=10^7
 	[1][1+n]=10^(7*2^n)
 */
-const prefixes = [ /* SI接頭辞 */
-	"q","r","y","z","a","f","p","n","μ","m",
-	"",
-	"k","M","G","T","P","E","Z","Y","R","Q"
-];
-/*
-	[0][n]=10^3n
-	[1][n]=20^-3n
-*/
-const mol = 602214076000000000000000; //アボガドロ定数
 
 function conversion(num) {
 	let value = String(num);
@@ -53,9 +43,6 @@ function conversion(num) {
 			break;
 		case "power":
 			el("output").innerHTML = powerConv(value,length);
-			break;
-		case "weight":
-			el("output").innerHTML = weightConv(value,length);
 			break;
 		case "unicode":
 			el("output").innerHTML = unicodeConv(value,length)
@@ -115,21 +102,6 @@ function powerConv(value,length) {
 	} else {
 		return `${value[0]}.${value.slice(1,4)} × 10^${length-1}`;
 	}
-};
-
-function weightConv(value,length) {
-	let
-		before = String(value/(mol/nowEl)),
-		beforeLog10 = String(Math.log10(before));
-	if(beforeLog10 == -Infinity) {
-		return "0g";
-	} else {
-		if(beforeLog10 <= 33) { 
-			return String((before*10**(-Math.floor(beforeLog10/3)*3)*10**10)/10**10).slice(0,((beforeLog10>0) ? 5 : 7 )+(Math.trunc(beforeLog10%3))) + prefixes[Math.trunc(beforeLog10/3+10)] + "g";
-		} else {
-			return `${before.slice(0,5)} × 10^${Math.trunc(beforeLog10)}g`;
-		};
-	};
 };
 
 function unicodeConv(value,length) {
