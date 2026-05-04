@@ -12,8 +12,8 @@ const englishNum = [
 	[4]はラスト(それしかつけない)
 	[0] 1=10^0 ~ 1N=10^30
 	[1] 1D = 10^33 ~ 1ND=10^60
-	[2] 1D = 10^33 ~ 1NO = 273
-	[3] 1CE = 10^303 ~ 1Nn = 10^2703
+	[2] 1D = 10^33 ~ 1No = 10^273
+	[3] 1Ce = 10^303 ~ 1Nn = 10^2703
 	[4] 1Mi = 10^3003
 */
 const japaneseNum = [
@@ -50,48 +50,32 @@ function conversion(num) {
 };
 
 function englishConv(value,length) {
-	const valLog = length - 1;
-	console.log(valLog);
+	const valLog = length - 1; // 10の何乗か(切り捨て)
+	const valLogM3 = valLog - 3; // 1D=10^33, 1Ce=10^303など、毎回3が余るからこれを用意したほうが分かりやすい
 	switch (true) { // caseの条件に合うものを実行する
 		case (valLog >= 3006):
 			return `≧1000${englishNum[4]}`;
 		case (valLog >= 3003):
-			console.log("aaa")
 			const miUnitLength = length - 3003;
 			const miUnit = value.slice(0, miUnitLength);
 			const miDecimal = value.slice(miUnitLength, miUnitLength+3);
 			return `${miUnit}.${miDecimal}${englishNum[4]}`;
-		case (length < 4):
+		case (valLog < 3):
 			return value;
 		default:
-			const displayLength = (length-1)%3+1;
+			const displayLength = valLog % 3 + 1;
 			const decimal = value.slice(displayLength, displayLength+3);
 			const display = value.slice(0, displayLength) + "." + decimal;
-			return display +
-				(englishNum[length >= 34 ? 1 : 0][Math.trunc(
-					((length >= 34) ?
-						((length-7)%30+3)/3 :
-						((length-4)%30+3)/3))]) +//0,1のやつ
-				(englishNum[2][Math.trunc((((length-7)%300)+3)/30)]) + // 2
-				(englishNum[3][Math.trunc((((length-7)%3000)+3)/300)]); // 3
-	}
-	if(length >= 3004) {
-		if(length <= 3006) {
-			return `${value.slice(0,length-3003)}.${value.slice(length-3003,(length-3000))}${englishNum[4]}`;
-		} else {
-			return `≧1000${englishNum[4]}`;
-		};
-	} else {
-		if(length <= 3) {return value;} else {
-			return `${value.slice(0,(length-1)%3+1)}.${value.slice((length-1)%3+1,(length-1)%3+4)}` +
-				(englishNum[length >= 34 ? 1 : 0][Math.trunc(
-					((length >= 34) ?
-						(((length-7)%30)+3)/3 :
-						(((length-4)%30)+3)/3))]) +//0,1のやつ
-				(englishNum[2][Math.trunc((((length-7)%300)+3)/30)]) + // 2
-				(englishNum[3][Math.trunc((((length-7)%3000)+3)/300)]); // 3
+			let firstUnit;
+			if(valLog < 33) { // 10^33以下なら([2]以降がつかないなら)
+				firstUnit = englishNum[0][Math.trunc(((valLog-3)%30+3)/3)] // 0を使う
+			} else {
+				firstUnit = englishNum[1][Math.trunc(((valLogM3-3)%30+3)/3)] // 1を使う
 			}
-		};
+			const secondUnit = englishNum[2][Math.trunc(((valLogM3-3)%300+3)/30)] // [2]
+			const thirdUnit = englishNum[3][Math.trunc(((valLogM3-3)%3000+3)/300)] // [3]
+			return display + firstUnit + secondUnit + thirdUnit
+	}
 };
 
 function japaneseConv(value,length) {
