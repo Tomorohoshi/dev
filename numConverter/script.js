@@ -28,8 +28,8 @@ const japaneseNum = [
 */
 
 function conversion(num) {
-	let value = String(num);
-	let length = value.length;
+	const value = String(num);
+	const length = value.length;
 
 	el("length").innerHTML = length + "桁";
 	el("power").innerHTML = "≒ 10^" + (length-1);
@@ -50,27 +50,46 @@ function conversion(num) {
 };
 
 function englishConv(value,length) {
+	const valLog = length - 1;
+	console.log(valLog);
+	switch (true) { // caseの条件に合うものを実行する
+		case (valLog >= 3006):
+			return `≧1000${englishNum[4]}`;
+		case (valLog >= 3003):
+			console.log("aaa")
+			const miUnitLength = length - 3003;
+			const miUnit = value.slice(0, miUnitLength);
+			const miDecimal = value.slice(miUnitLength, miUnitLength+3);
+			return `${miUnit}.${miDecimal}${englishNum[4]}`;
+		case (length < 4):
+			return value;
+		default:
+			const displayLength = (length-1)%3+1;
+			const decimal = value.slice(displayLength, displayLength+3);
+			const display = value.slice(0, displayLength) + "." + decimal;
+			return display +
+				(englishNum[length >= 34 ? 1 : 0][Math.trunc(
+					((length >= 34) ?
+						((length-7)%30+3)/3 :
+						((length-4)%30+3)/3))]) +//0,1のやつ
+				(englishNum[2][Math.trunc((((length-7)%300)+3)/30)]) + // 2
+				(englishNum[3][Math.trunc((((length-7)%3000)+3)/300)]); // 3
+	}
 	if(length >= 3004) {
 		if(length <= 3006) {
-			return `${value.slice(0,length%3003)}.${value.slice(length%3003,(length%3003+3))}${englishNum[4]}`;//4
+			return `${value.slice(0,length-3003)}.${value.slice(length-3003,(length-3000))}${englishNum[4]}`;
 		} else {
 			return `≧1000${englishNum[4]}`;
 		};
 	} else {
 		if(length <= 3) {return value;} else {
-			return ((length <= 3) ?
-				value :
-				`${value.slice(0,(length-1)%3+1)}.${value.slice((length-1)%3+1,(length-1)%3+4)}`) +
+			return `${value.slice(0,(length-1)%3+1)}.${value.slice((length-1)%3+1,(length-1)%3+4)}` +
 				(englishNum[length >= 34 ? 1 : 0][Math.trunc(
-					((length >= 34) ? 
+					((length >= 34) ?
 						(((length-7)%30)+3)/3 :
-						((length >= 34) ?
-							((length <=36) ?
-								0 :
-								((((length-7)%30)+3)/3)) :
-							(((length-4)%30)+3)/3)))]) +//0,1のやつ
-				(englishNum[2][Math.trunc((((length-7)%300)+3)/30)]) +//2
-				(englishNum[3][Math.trunc((((length-7)%3000)+3)/300)]);//3
+						(((length-4)%30)+3)/3))]) +//0,1のやつ
+				(englishNum[2][Math.trunc((((length-7)%300)+3)/30)]) + // 2
+				(englishNum[3][Math.trunc((((length-7)%3000)+3)/300)]); // 3
 			}
 		};
 };
