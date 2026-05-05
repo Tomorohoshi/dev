@@ -107,8 +107,8 @@
 				case "1":
 					return `conic-gradient(${color} ${value}turn,#fff ${value}turn 1turn)`;
 				case "2":
-					if(value <= 0.99) {
-						if(value >= 0.01) {
+					if (value <= 0.99) {
+						if (value >= 0.01) {
 							return `conic-gradient(#fff ${value-0.01}turn,${color} ${value-0.01}turn ${value+0.01}turn,#fff ${value+0.01}turn 1turn)`;
 						} else {
 							return `conic-gradient(${color} ${value+0.01}turn,#fff ${value+0.01}turn ${value+0.99}turn,${color} ${value+0.99}turn 1turn`;

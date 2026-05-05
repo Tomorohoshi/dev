@@ -128,7 +128,7 @@
 		LSleft = 0;//このレベルの残りのシャトル数
 	function el(id) {return document.getElementById(id)};
 	function insert(before,string,number) {
-		if(number < 0) {
+		if (number < 0) {
 			return String(before).slice(0,number+1) + string + String(before).slice(number+1);
 		} else {
 			return String(before).slice(0,number+1) + string + String(before).slice(-number);
@@ -153,7 +153,7 @@
 			for(var i=0;i<9;i++) {
 				//1目盛りごとの作業
 				setTimeout(() => {
-					if(starting === "left") {
+					if (starting === "left") {
 						el("rest").innerHTML = " " + "▶ ".repeat(8-times);
 						el("restL").innerHTML = "| " + "▶ ".repeat(times);
 						el("restR").innerHTML = "|";
@@ -170,10 +170,10 @@
 			setTimeout(() => {
 				shuttle++;
 				el("number").innerHTML = shuttle;
-				if(!(shuttle >= 1000)) {
+				if (!(shuttle >= 1000)) {
 					el("numberL").innerHTML = "0".repeat(3-String	(shuttle).length);
 				};
-				if(starting === "left") {
+				if (starting === "left") {
 					starting = "right";
 					el("rest").innerHTML = " ◀ ◀ ◀ ◀ ◀ ◀ ◀ ◀ ";
 					el("restL").style.color = "#000";
@@ -189,7 +189,7 @@
 				mileage = shuttle * 20;
 				times = 0;
 				LSleft--;
-				if(LSleft == 0) {
+				if (LSleft == 0) {
 					el("TNLRR").innerHTML = "Shuttle";
 					el("TNL").innerHTML = "Last";
 				} else {
@@ -209,11 +209,11 @@
 					el("mileageL").innerHTML = (el("mileage").innerHTML.length < 5) ? "0,"+"0".repeat(4-(el("mileage").innerHTML.length)) : "";
 				}, 360/speed);
 		//時間を計測する作業(長くて見づらいけど変数の長さに応じて灰色の文字の長さを変えているプログラムです)
-		if(time <= 0) {
+		if (time <= 0) {
 			setInterval(() => {
 				time += 0.05;
 				time = Math.round(time * 100) / 100;
-				if(String(time).includes(".")) {
+				if (String(time).includes(".")) {
 					el("time").innerHTML = (time >= 3600 ? String(Math.floor(time/3600))+":" : "") + (time >= 60 ? String(Math.floor((time/60)%60)).padStart(2,"0")+":" : "") + String(Math.floor(time % 60)).slice(0,String(time).indexOf(".")+1).padStart(2,"0") + ".";
 					el("timeR").innerHTML = String(time).slice(String(time).indexOf(".")+1).padEnd(2,"0");
 				} else {
@@ -226,7 +226,7 @@
 		//レベルが終わる時に速度を速くしてまた繰り返す作業
 		setTimeout(
 			() => {
-				if(speed === 8) {
+				if (speed === 8) {
 					speed++;
 				} else {
 					speed += 0.5;

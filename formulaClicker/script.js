@@ -42,7 +42,7 @@ function updateMainFormula(targetId, customValue=null) {
 
 function buy(upgrade, val=1, doError=true) {
 	for(let i=0;i<val;i++) {
-		if(upgrade.cost <= score) {
+		if (upgrade.cost <= score) {
 			upgrade.value += upgrade.increase;
 			upgrade.level++;
 			usedScore += upgrade.cost;
@@ -60,7 +60,7 @@ function buy(upgrade, val=1, doError=true) {
 				default: break;
 			}
 			upgrade.cost = Number(upgrade.cost.toFixed(2));
-			if(doError) {
+			if (doError) {
 				switch(upgrade.name) {
 					case "m":
 						scoreError += time * upgrade.increase;
@@ -78,11 +78,11 @@ function buy(upgrade, val=1, doError=true) {
 }
 
 function update(currentTime) {
-	if(!animationStartedTime) animationStartedTime = currentTime;
+	if (!animationStartedTime) animationStartedTime = currentTime;
 
 	const delta = currentTime - lastTime;
 
-	if(delta >= updateInterval) {
+	if (delta >= updateInterval) {
 		lastTime = currentTime - (delta % updateInterval);
 		const timeDiffSec = (currentTime - animationStartedTime) / 1000;
 		time = timeDiffSec;
@@ -105,8 +105,8 @@ requestAnimationFrame(update);
 el("mUpgrade").onclick = function() {
 	const upgrade = upgradeData.m;
 
-	if(upgrade.value == null) {
-		if(upgrade.cost > score) return;
+	if (upgrade.value == null) {
+		if (upgrade.cost > score) return;
 		el("m").style.display = "inline";
 		query("#mUpgrade .title>:not(.formula)").innerHTML = "の値を増やす";
 		buy(upgrade, 1, false);

@@ -43,7 +43,7 @@
     <button id="display" style='font-family: "originalFont"; text-align: right; border: #444 solid 2px; margin-top: 20px; margin-bottom: 20px;width: 450px; height: 70px; font-size: 50px;' disabled></button>
     <br>
     <button class="button" style="margin-right: 25px;"onclick="
-    if(display.innerHTML != '') {
+    if (display.innerHTML != '') {
       change(display.innerHTML.slice(0,-1));
     } else {
       change('');
@@ -79,12 +79,12 @@
     <button class="button" style="margin-bottom: 40px;" onclick="change('');">+</button>
     <br>
     <button class="button" style="margin-right: 25px;"onclick="
-      if(display.innerHTML != 0) {
+      if (display.innerHTML != 0) {
         change('add','0');
       };
       ">0</button>
     <button class="button" style="margin-right: 25px;" onclick="
-      if(display.innerHTML != 0) {
+      if (display.innerHTML != 0) {
         change('add','00');
       };
     ">00</button>
@@ -94,7 +94,7 @@
 <script>
   var display = document.getElementById("display");
   function change(string,add) {
-    if(string !== "add"){
+    if (string !== "add"){
       display.innerHTML = string;
     } else {
       display.innerHTML += add;

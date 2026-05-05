@@ -409,7 +409,7 @@
 		function createEl(elementName, placeId, info) {
 			let create = document.createElement(elementName);
 			for(let item in info) {
-				if(item !== "class") {
+				if (item !== "class") {
 					create[item] = info[item];
 				} else {
 					create.classList.add(info[item]);
@@ -422,7 +422,7 @@
 			result[0] = result[0].split("-"); // 年、月、日に分かれる
 			result[1] = result[1].split(":"); // 時、分、秒に分かれる
 			result = result[0].concat(result[1], [0]); // ミリ秒用のやつも含めて合体
-			if(!result[6]) {
+			if (!result[6]) {
 				result[6] = 0;
 			}
 			return result;
@@ -430,7 +430,7 @@
 		function modeChange(modeNum) {
 			mode = modeNum;
 			for(let i = 1; i < 4;i++) {
-				if(i === mode) {
+				if (i === mode) {
 					el("main" + i).style.display = "block";
 				} else {
 					el("main" + i).style.display = "none";
@@ -465,9 +465,9 @@
 					el("japanese").disabled = false;
 					el("twoLines").disabled = false;
 					//1段階づつ作っていく
-					if(el("japanese").checked) {
+					if (el("japanese").checked) {
 						el("toMini").disabled = false;
-						if(el("toMini").checked) {
+						if (el("toMini").checked) {
 							result += "`${String(now.Y)}<span fontSize>年</span>${String(now.Mo+1).padStart(2,\"0\")}<span fontSize>月</span>${String(now.D).padStart(2,\"0\")}<span fontSize>日</span>` + ";
 						} else {
 							result += "`${String(now.Y)}年${String(now.Mo+1).padStart(2,\"0\")}月${String(now.D).padStart(2,\"0\")}日` + ";
@@ -476,7 +476,7 @@
 						el("toMini").disabled = true;
 						result += "`${String(now.Y)}/${String(now.Mo+1).padStart(2,\"0\")}/${String(now.D).padStart(2,\"0\")}/` + ";
 					};
-					if(el("twoLines").checked) {
+					if (el("twoLines").checked) {
 						el("bigText").disabled = false;
 						el("main1").style.marginTop = "calc(50vh - 1em)";
 						result += "`<br>` + ";
@@ -484,21 +484,21 @@
 						el("bigText").disabled = true;
 						el("main1").style.marginTop = "calc(50vh - 0.5em)";
 					};
-					if(el("japanese").checked) {
-						if(el("toMini").checked) {
+					if (el("japanese").checked) {
+						if (el("toMini").checked) {
 							result += "`${String(now.H).padStart(2,\"0\")}<span fontSize>時</span>${String(now.Mi).padStart(2,\"0\")}<span fontSize>分</span>${String(now.S).padStart(2,\"0\")}<span fontSize>秒<span>` + ";
 						} else {
 							result += "`${String(now.H).padStart(2,\"0\")}時${String(now.Mi).padStart(2,\"0\")}分${String(now.S).padStart(2,\"0\")}秒` + ";
 						};
 					} else {
 						result += "`${String(now.H).padStart(2,\"0\")}:${String(now.Mi).padStart(2,\"0\")}:${String(now.S).padStart(2,\"0\")}` + ";
-						if(interval != 1000) {
+						if (interval != 1000) {
 							result += "\".\" + "
 						}
 					};
 					result += `\`<span fontSize>\${String(now.MS).padStart(3,"0").slice(0,${3 - Math.log10(interval)})}</span>\``;
-					if(el("bigText").checked) {
-						if(el("twoLines").checked) {
+					if (el("bigText").checked) {
+						if (el("twoLines").checked) {
 							el("main1").style.fontSize = "150px";
 							result = result.replaceAll("fontSize", "style=\"font-size:120px\"");
 						} else {
@@ -522,7 +522,7 @@
 					el("bigText").disabled = false;
 					//自分でも何書いてるかわからん
 					result += `\`<span style="fontSize translate: translateX 10px;" >\${String(now.Y)}/</span><br>\${String(now.Mo+1).padStart(2,\"0\")}/\${String(now.D).padStart(2,\"0\")}/<br>\${String(now.H).padStart(2,\"0\")}:\${String(now.Mi).padStart(2,\"0\")}:<br>\${String(now.S).padStart(2,\"0\")}${interval == 1000 ? "" : "."}<span style="fontSize">\${String(now.MS).padStart(3,"0").slice(0,${3 - Math.log10(interval)})}</span>\``;
-					if(el("bigText").checked) {
+					if (el("bigText").checked) {
 						el("main2Clock").style.scale = 1.1;
 						el("main2Text").style.fontSize = "120px";
 						result = result.replaceAll("fontSize", "font-size:96px;");
@@ -554,7 +554,7 @@
 					el("main3SecStick").style.rotate = `${(now.S + (interval == 1000 ? 0 : now.MS / 1000)) * 6}deg`;
 					el("main3MinStick").style.rotate = `${(now.Mi + now.S / 60 + now.MS / 60000) * 6}deg`;
 					el("main3HourStick").style.rotate = `${(now.H % 12 + now.Mi / 60 + now.S / 3600 + now.MS / 3600000) * 30}deg`;
-					if(el("bigText").checked) {
+					if (el("bigText").checked) {
 						el("main3Clock").style.scale = 1.15;
 					} else {
 						el("main3Clock").style.scale = 1;
@@ -570,7 +570,7 @@
 			el("toMiniLabel").style.color = el("toMini").disabled ? "#666" : "#000";
 			el("twoLinesLabel").style.color = el("twoLines").disabled ? "#666" : "#000";
 			el("bigTextLabel").style.color = el("bigText").disabled ? "#666" : "#000";
-			if(el("bigText").checked && !el("bigText").disabled) {
+			if (el("bigText").checked && !el("bigText").disabled) {
 				el("aram1").style.fontSize = "40px";
 				el("aram2").style.fontSize = "35px";
 				el("aram3").style.fontSize = "30px";
@@ -608,7 +608,7 @@
 					};
 					for(let j=0;j<6;j++) {
 						for(let i = 1; i < 7;i++) {// iが1から始まるのに注意
-							if(result[i] < 0) {
+							if (result[i] < 0) {
 								switch (i) {
 									case 1: // 月なら
 										result[i] += 12;
@@ -632,7 +632,7 @@
 					};
 					for(let i=0;i<result[0];i++) { // 年を日に変換
 						result[2] += 365;
-						if((aramTime[0] - 1) % 4 === 0) {
+						if ((aramTime[0] - 1) % 4 === 0) {
 							result[2]++;
 						};
 					};
@@ -655,7 +655,7 @@
 								result[2] += 30;
 								break;
 							case 2:
-								if((aramTime - result[0]) % 4 == 0) { // うるう年かどうか
+								if ((aramTime - result[0]) % 4 == 0) { // うるう年かどうか
 									result[2] += 29;
 								} else {
 									result[2] += 28;
@@ -667,7 +667,7 @@
 			}, 100);
 		};
 		el("settingsSwitch").addEventListener("click", () => {
-			if(isElClose.settings) {
+			if (isElClose.settings) {
 				isElClose.settings = false;
 				el("settingsDiv").style.animation = "none";
 				void el("settingsDiv").offsetWidth;
@@ -688,7 +688,7 @@
 			};
 		});
 		el("windowChange").addEventListener("click", () => {
-			if(isElClose.aram) {
+			if (isElClose.aram) {
 				isElClose.aram = false;
 				saveData(["aramClose", false])
 				el("setAram").style.display = "flex";
@@ -700,10 +700,10 @@
 				el("main").style.display = "flex";
 			};
 		});
-		if(data("aramClose") === undefined) {
+		if (data("aramClose") === undefined) {
 			saveData(["aramClose", false]);
 		};
-		if(data("aramClose") === "true") {
+		if (data("aramClose") === "true") {
 			isElClose.aram = true;
 			el("setAram").style.display = "none";
 			el("main").style.display = "flex";
@@ -712,7 +712,7 @@
 			el("setAram").style.display = "flex";
 			el("main").style.display = "none";
 		};
-		if(data("mode")) {
+		if (data("mode")) {
 			modeChange(Number(data("mode")));
 			el(`interval${data("interval")}`).checked = true;
 		} else {

@@ -747,7 +747,7 @@
 			windowNum = num;
 			saveData("windowNum",windowNum);
 			for(let i=0;i<el("windows").children.length;i++) {
-				if(i+1 == num) {
+				if (i+1 == num) {
 					el(`window${i+1}`).style.display = "inline";
 					el(`tab${i+1}`).style.backgroundColor = "#e4f2e4";
 				} else {
@@ -756,7 +756,7 @@
 				};
 			};
 		};
-		if(data("windowNum") === null) {
+		if (data("windowNum") === null) {
 			changeWindow(1);
 		} else {
 			changeWindow(data("windowNum"))
@@ -768,18 +768,18 @@
 			el("dialog").close()
 		});
 		el("fullscreen").addEventListener("click",()=> {
-			if(el("fullscreen").requestFullscreen) {
+			if (el("fullscreen").requestFullscreen) {
 				el("fullscreen").requestFullscreen();
-			} else if(el("fullscreen").mozRequestFullScreen) { // Firefox用
+			} else if (el("fullscreen").mozRequestFullScreen) { // Firefox用
 				el("fullscreen").mozRequestFullScreen();
-			} else if(el("fullscreen").webkitRequestFullscreen) { // Chrome, Safari, Opera用
+			} else if (el("fullscreen").webkitRequestFullscreen) { // Chrome, Safari, Opera用
 				el("fullscreen").webkitRequestFullscreen();
-			} else if(el("fullscreen").msRequestFullscreen) { // IE/Edge用
+			} else if (el("fullscreen").msRequestFullscreen) { // IE/Edge用
 				el("fullscreen").msRequestFullscreen();
 			};
 		});
 		document.addEventListener("fullscreenchange",()=> {
-			if(document.fullscreenElement) {
+			if (document.fullscreenElement) {
 				el("fullscreen").innerHTML = "フルスクリーン状態です。<br>エスケープキーを押すと終了します"
 			} else {
 				el("fullscreen").innerHTML = "フルスクリーンを<br>開始する";
@@ -796,7 +796,7 @@
 			el("visited").innerHTML = thisValue;
 		});
 		function scope() {
-			if(el("scope").innerHTML === "適用させる") {
+			if (el("scope").innerHTML === "適用させる") {
 				el("scope").innerHTML = "適用を解除する";
 				el("style").innerHTML = ":scope {background-color:#f60;}";
 			} else {

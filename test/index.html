@@ -35,7 +35,7 @@
 	let updateAccError = false; // 加速度の誤差を更新するかどうか
 
 	function start() {
-		if(updateID) navigator.geolocation.clearWatch(updateID);
+		if (updateID) navigator.geolocation.clearWatch(updateID);
 		// iPhone用許可
 		if (typeof DeviceOrientationEvent.requestPermission === "function") {
 			DeviceOrientationEvent.requestPermission().then(response => {
@@ -66,7 +66,7 @@
 			timeout: 100
 		});// 高精度な位置情報を取得する
 
-		if(updateID == 1) {
+		if (updateID == 1) {
 		// 角度
 		window.addEventListener("deviceorientation",(event)=>{
 		try {
@@ -85,10 +85,10 @@
 			accUpdatedTimes++;
 			el("accUpdatedTimes").innerHTML = accUpdatedTimes;
 			const acc = e.accelerationIncludingGravity;
-			if(acc && acc.y) {
+			if (acc && acc.y) {
 				const now = performance.now();
 				const dt = (now-lastTime)/1000;
-				if(updateAccError) {
+				if (updateAccError) {
 					accError = acc.y * dt;
 					updateAccError = false;
 				};
@@ -108,7 +108,7 @@
 	};
 
 	function update() {
-		if(speed) el("speed").innerHTML = speed.toFixed(2) + "m/s (" + (speed * 3.6).toFixed(2) + "km/h" + ")";
+		if (speed) el("speed").innerHTML = speed.toFixed(2) + "m/s (" + (speed * 3.6).toFixed(2) + "km/h" + ")";
 		requestAnimationFrame(update);
 	};
 </script>

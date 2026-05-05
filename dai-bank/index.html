@@ -303,7 +303,7 @@
 		});
 
 		// 起動時のログイン状態確認
-		if(getCookie("loginName")) {
+		if (getCookie("loginName")) {
 			el("loginOutput").innerHTML = `${getCookie("loginName")}としてログインしています`;
 			disableBts(false);
 		} else {
@@ -376,15 +376,15 @@
 			const output = el("sendToNameOutput");
 			output.style.color = "red";
 			el("sendConfirm").disabled = true;
-			if(value === getCookie("loginName")) {
+			if (value === getCookie("loginName")) {
 				output.innerHTML = "自分自身には送金できません";
-			} else if(value == "") {
+			} else if (value == "") {
 				output.innerHTML = "ユーザーネームを入力してください";
-			} else if(!(data.find(el => el.name === value))) {
+			} else if (!(data.find(el => el.name === value))) {
 				output.innerHTML = "送金先ユーザー名が見つかりません";
 			} else {
 				output.style.color = "black";
-				if(el("sendAmountOutput").innerHTML === "送金金額は有効です") {
+				if (el("sendAmountOutput").innerHTML === "送金金額は有効です") {
 					el("sendConfirm").disabled = false;
 				};
 				output.innerHTML = "送金先ユーザー名は有効です";
@@ -395,14 +395,14 @@
 			const output = el("sendAmountOutput");
 			output.style.color = "red";
 			el("sendConfirm").disabled = true;
-			if(el("sendToName").value === "") {
+			if (el("sendToName").value === "") {
 				el("sendToNameOutput").innerHTML = "正しいユーザーネームと送金額を入力してください";
 				output.innerHTML = "";
-			} else if(isNaN(value) || value <= 0) {
+			} else if (isNaN(value) || value <= 0) {
 				output.innerHTML = "送金金額は1以上の数字で入力してください";
 			} else {
 				output.style.color = "black";
-				if(el("sendToNameOutput").innerHTML === "送金先ユーザー名は有効です") {
+				if (el("sendToNameOutput").innerHTML === "送金先ユーザー名は有効です") {
 					el("sendConfirm").disabled = false;
 				};
 				output.innerHTML = "送金金額は有効です";

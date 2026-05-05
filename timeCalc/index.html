@@ -563,9 +563,9 @@
 		/** この関数は、変数isValidを更新するためのものです。主にinputLimiter関数で使われています。 */
 		function validUpdate() {
 			for (const key in Object.keys(isValid)) {
-				if(key === "all") {
+				if (key === "all") {
 					isValid[key] = true;
-				} else if(isValid[key] = false) {
+				} else if (isValid[key] = false) {
 					isValid.all = false;
 				};
 			};
@@ -576,23 +576,23 @@
 		function inputLimiter(id, doAllowWhiteSpace=true) {
 			el(id).addEventListener("input",function() {
 				const value = this.value;
-				if(value == "") {
+				if (value == "") {
 					isValid[id] = true;
-				} else if((value < Number(this.min) && this.min != "") || (value > Number(this.max) && this.max != "") || (value % Number(this.step) != 0 && this.step != "")) {
+				} else if ((value < Number(this.min) && this.min != "") || (value > Number(this.max) && this.max != "") || (value % Number(this.step) != 0 && this.step != "")) {
 					isValid[id] = false
 					this.classList.add("inValid");
 				} else {
 					isValid[id] = true;
 					this.classList.remove("inValid");
 				};
-				if(value == "" && doAllowWhiteSpace) {
+				if (value == "" && doAllowWhiteSpace) {
 					isValid[id] = true;
 					this.classList.remove("inValid");
 				} else {};
 				validUpdate();
-				if(el("autoFocus").checked && isValid[id] && value != "" && DATE_INPUT_LIST.indexOf(id) != -1 && ((value.length >= this.max.length && this.max != "") || (Number(value+"0") > this.max && this.max != "") || value == 0 || (this.id == "year" && value.length >= 4))) {
+				if (el("autoFocus").checked && isValid[id] && value != "" && DATE_INPUT_LIST.indexOf(id) != -1 && ((value.length >= this.max.length && this.max != "") || (Number(value+"0") > this.max && this.max != "") || value == 0 || (this.id == "year" && value.length >= 4))) {
 					const nextIndex = DATE_INPUT_LIST.indexOf(id) + 1;
-					if(nextIndex < DATE_INPUT_LIST.length) {
+					if (nextIndex < DATE_INPUT_LIST.length) {
 						el(DATE_INPUT_LIST[nextIndex]).focus();
 						el(DATE_INPUT_LIST[nextIndex]).select();
 					} else {
@@ -611,17 +611,17 @@
 		inputLimiter("fontSize", false);
 
 		el("fullscreenBt").addEventListener("click", function() {
-			if(el("outputParent").requestFullscreen) {
+			if (el("outputParent").requestFullscreen) {
 				el("outputParent").requestFullscreen();
-			} else if(el("outputParent").webkitRequestFullscreen) { /* Safari */
+			} else if (el("outputParent").webkitRequestFullscreen) { /* Safari */
 				el("outputParent").webkitRequestFullscreen();
-			} else if(el("outputParent").msRequestFullscreen) { /* IE11 */
+			} else if (el("outputParent").msRequestFullscreen) { /* IE11 */
 				el("outputParent").msRequestFullscreen();
 			};
 		})
 		el("doDisplayEnglish").addEventListener("input", function() {
 			const langElements = document.querySelectorAll("span[lang='en']:not(#doDisplayEnglish~span)");
-			if(this.checked) {
+			if (this.checked) {
 				langElements.forEach(function(element) {
 					element.style.display = "inline";
 				});
@@ -743,7 +743,7 @@
 				// 負の値を繰り上げ処理
 				for(let i=0;i<timeLeft.length;i++) {
 					// "year"のときも考慮しなきゃ
-					if(timeLeft[i] < 0) {
+					if (timeLeft[i] < 0) {
 						switch(i) {
 							case 0:
 								// 年の場合は特に処理しない
@@ -759,7 +759,7 @@
 										break;
 									case 2:
 										// アップデートするときに作る予定 2月の場合の閏年の処理
-										if(now.year+1 % 4 == 0) {
+										if (now.year+1 % 4 == 0) {
 											timeLeft[2] += 29; // うるう年の2月は29日
 										} else {
 											timeLeft[2] += 28; // うるう年でない2月は28日
@@ -775,25 +775,25 @@
 					};
 				};
 				const numType = el("numTypeSelect").value;
-				if(numType != "all") {
+				if (numType != "all") {
 					let result = [0n,0]; // 整数部分と小数部分
 					for(let i=0;i<Object.keys(timeLeft).length;i++) { // もういっちょ
-						if(i != numType){
-							if(i != Object.keys(timeLeft).length - 1) {
+						if (i != numType){
+							if (i != Object.keys(timeLeft).length - 1) {
 								timeLeft[i+1] += timeLeft[i] * MAX_VALUE[i+1];
 								timeLeft[i] = 0;
 							} else {
 								result[1] = timeLeft[i] / DIVIDE_VALUE[numType];
 							};
-						} else if(i == numType) {
-							if(i == 0) {
+						} else if (i == numType) {
+							if (i == 0) {
 								result[0] = BigInt(timeLeft[i]);
 							} else {
 								result[0] = BigInt(timeLeft[i]) + BigInt(timeLeft[i-1]);
 							};
 						};
 					};
-					if(decimalPlace == 0) {
+					if (decimalPlace == 0) {
 						el("numberOutput").innerText = result[0].toString();
 					} else {
 						switch(nameValue("rounding")) { // 小数点以下の桁数を切り捨て・四捨五入・切り上げする
@@ -807,7 +807,7 @@
 								result[1] = Math.round(result[1] * (10 ** decimalPlace)) / (10 ** decimalPlace);
 								break;
 						};
-						if(result[1].toString().slice(2)) { // 桁数が足りないところに0を追加する
+						if (result[1].toString().slice(2)) { // 桁数が足りないところに0を追加する
 							result[1] = result[1].toString().slice(2).padEnd(decimalPlace, "0");
 						} else {
 							result[1] = "0".repeat(decimalPlace);

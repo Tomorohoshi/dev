@@ -58,8 +58,8 @@
 		function fn(n) {return () => {input(contents[n][0],contents[n][1],contents[n][2])}};
 		function input(character,nextFn,prob) {
 			//完成した文章の色付け
-			if(spanEl().innerHTML.length >= Number(answer().length)){
-				if(spanEl().innerHTML.slice(-(answer().length)) == answer()) {
+			if (spanEl().innerHTML.length >= Number(answer().length)){
+				if (spanEl().innerHTML.slice(-(answer().length)) == answer()) {
 					spanEl().innerHTML = spanEl().innerHTML.slice(0,-(answer().length));
 					spans[1][howMany-1] = document.createElement("span");
 					spans[1][howMany-1].innerHTML = answer();
@@ -76,13 +76,13 @@
 			//文章の追加,次の関数への引き渡し
 			el("span"+howMany).innerHTML += character;
 			setTimeout(() => {
-				if(prob == [1]) {
+				if (prob == [1]) {
 					eval(`fn${nextFn[0]}()`)
 				} else {
 					var random = Math.random();
 					console.log(el("timeOut").value)
 					loop: for(let i=0;i<prob.length;i++) {
-						if(random < prob[i]) {
+						if (random < prob[i]) {
 							eval(`fn${nextFn[i]}()`)
 							break loop;
 						} else {

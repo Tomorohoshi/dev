@@ -67,7 +67,7 @@ function englishConv(value,length) {
 			const decimal = value.slice(displayLength, displayLength+3);
 			const display = value.slice(0, displayLength) + "." + decimal;
 			let firstUnit;
-			if(valLog < 33) { // 10^33以下なら([2]以降がつかないなら)
+			if (valLog < 33) { // 10^33以下なら([2]以降がつかないなら)
 				firstUnit = englishNum[0][Math.trunc(((valLog-3)%30+3)/3)] // 0を使う
 			} else {
 				firstUnit = englishNum[1][Math.trunc(((valLogM3-3)%30+3)/3)] // 1を使う
@@ -93,12 +93,12 @@ function japaneseConv(value,length) {
 			let binary = Math.trunc((length-1)/7).toString(2);
 			const longDisplayLength = (length - 1) % 7 + 1;
 			for(let i=0;i<binary.length;i++) {
-				if(Number(binary.slice(-(i+1))[0])) { // binaryの最後からi+1文字目が1だったら
+				if (Number(binary.slice(-(i+1))[0])) { // binaryの最後からi+1文字目が1だったら
 					unitPart += japaneseNum[2][i];
 				}
 			}
 			let longDisplay;
-			if((length-1)%7+1 <= 5) {
+			if ((length-1)%7+1 <= 5) {
 				longDisplay = `${value.slice(0, longDisplayLength)}.${value.slice(longDisplayLength, longDisplayLength+3)}`
 			} else {
 				longDisplay = `${value.slice(0, longDisplayLength-5)}.${value.slice(longDisplayLength-5, longDisplayLength-2)}` + japaneseNum[1]
@@ -108,7 +108,7 @@ function japaneseConv(value,length) {
 }
 
 function powerConv(value,length) {
-	if(length == 1) {
+	if (length == 1) {
 		return value + " × 10^0"
 	} else {
 		return `${value[0]}.${value.slice(1,4)} × 10^${length-1}`;
@@ -126,7 +126,7 @@ function unicodeConv(value,length) {
 	};
 	// 4桁ごとに分割してUnicodeに変換
 	for(let i=0;i<before.length;i+=4) {
-		if(parseInt(before.substring(i,i+4),16) == "0") {result += "(0)"
+		if (parseInt(before.substring(i,i+4),16) == "0") {result += "(0)"
 		} else {
 			result += String.fromCharCode(parseInt(before.substring(i,i+4),16));
 		}

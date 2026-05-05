@@ -208,9 +208,9 @@ function nowUpdate() {
 function timeUpdate() {
 	nowUpdate();
 
-	if(now.s == 0) {
+	if (now.s == 0) {
 		el("otherTime").innerHTML = addZero(now.h) + ":" + addZero(now.mi)
-		if(now.h == 0) {
+		if (now.h == 0) {
 			el("date").innerHTML = now.y + "/" + addZero(now.mo + 1) + "/" + addZero(now.d);
 		}
 	}
@@ -233,13 +233,13 @@ function updateTimeTable(isFirstTime=false) {
 	let timeLeft;
 
 	for(let i = 0; i < todayDailyRoutine.length; i++) {
-		if((time >= todayDailyRoutine[i][1][0] * 60 + todayDailyRoutine[i][1][1]) && (time < todayDailyRoutine[i][2][0] * 60 + todayDailyRoutine[i][2][1])) {
+		if ((time >= todayDailyRoutine[i][1][0] * 60 + todayDailyRoutine[i][1][1]) && (time < todayDailyRoutine[i][2][0] * 60 + todayDailyRoutine[i][2][1])) {
 			nowWorkingOn = todayDailyRoutine[i];
 			break;
 		}
 	}
-	if(nowWorkingOn == undefined) { // 存在しないなら学校外とする
-		if(week == 4) { // 木曜日なら
+	if (nowWorkingOn == undefined) { // 存在しないなら学校外とする
+		if (week == 4) { // 木曜日なら
 			nowWorkingOn = ["afterSchool",[15,25],[9,0]];
 		} else {
 		nowWorkingOn = ["afterSchool",[16,45],[9,0]];
@@ -247,7 +247,7 @@ function updateTimeTable(isFirstTime=false) {
 	};
 	timeLeft = (nowWorkingOn[2][0] * 3600 + nowWorkingOn[2][1] * 60) - (now.h * 3600 + now.mi * 60 + now.s + now.ms / 1000);
 
-	if(now.s == 0 || isFirstTime) { // できるだけ更新の頻度を低くする
+	if (now.s == 0 || isFirstTime) { // できるだけ更新の頻度を低くする
 		everyMinuteUpdate();
 	}
 
@@ -257,12 +257,12 @@ function updateTimeTable(isFirstTime=false) {
 	el("timeLeftGraph").style.width = timeLeftPercent + "%";
 
 	function everyMinuteUpdate() {
-		if(nowWorkingOn[0].includes("after") && !(nowWorkingOn[0] == "afterSchool")) { // after-1stのような休み時間なら
+		if (nowWorkingOn[0].includes("after") && !(nowWorkingOn[0] == "afterSchool")) { // after-1stのような休み時間なら
 			el("nowSubject").innerHTML = SUBJECT_DATA["containsAfter"].name;
 			el("nowSubject").style.setProperty("--afterText", "\"です\"");
 		} else {
 			el("nowSubject").style.setProperty("--afterText", "\"の時間です\"");
-			if(/^[0-9].*/.test(nowWorkingOn[0][0])) { // もし1stなどの◯時間目なら
+			if (/^[0-9].*/.test(nowWorkingOn[0][0])) { // もし1stなどの◯時間目なら
 				nowSubject = TIME_TABLE[now.da][Number(nowWorkingOn[0][0])-1]
 				el("nowSubject").innerHTML = SUBJECT_DATA[nowSubject].name;
 			} else {
@@ -271,7 +271,7 @@ function updateTimeTable(isFirstTime=false) {
 			}
 		}
 
-		if(nowWorkingOn[0] == "afterSchool") {
+		if (nowWorkingOn[0] == "afterSchool") {
 			el("timeLeftGraphParent").style.display = "none";
 		} else {
 			el("timeLeftGraphParent").style.display = "block";
@@ -280,14 +280,14 @@ function updateTimeTable(isFirstTime=false) {
 		el("timeLeftGraphLeft").innerHTML = addZero(nowWorkingOn[2][0]) + ":" + addZero(nowWorkingOn[2][1]);
 		el("timeLeftGraphRight").innerHTML = addZero(nowWorkingOn[1][0]) + ":" + addZero(nowWorkingOn[1][1]);
 
-		if(Math.abs(timeLeft) > 3600) { // 1時間以上なら時間を表示する
+		if (Math.abs(timeLeft) > 3600) { // 1時間以上なら時間を表示する
 			el("timeLeftHour").style.display = "inline";
 			el("timeLeftHour").innerHTML = addZero(Math.floor(timeLeft / 3600 + 24) % 24); // +24して%24することで、もしマイナスになった時に24を足した数になるようにしている 普通にプラスだったら%24で足した分はなくなる
 		} else {
 			el("timeLeftHour").style.display = "none";
 		}
 
-		if(nowWorkingOn[0] == "afterSchool") {
+		if (nowWorkingOn[0] == "afterSchool") {
 			el("todayTimeTableNowSign").style.display = "none";
 		} else {
 			el("todayTimeTableNowSign").style.display = "block";
@@ -297,7 +297,7 @@ function updateTimeTable(isFirstTime=false) {
 			el("todayTimeTableNowSign").style.top = `${100 - timeLeftPercent}%`;
 		}
 
-		if((now.m == 0 && now.h == 0) || isFirstTime) { // もし日が変わったなら
+		if ((now.m == 0 && now.h == 0) || isFirstTime) { // もし日が変わったなら
 			todayDailyRoutine = (now.da == 4) ? DAILY_ROUTINE.thursday : DAILY_ROUTINE.regular;
 			updateTodayTimeTable();
 		}
@@ -313,12 +313,12 @@ function updateTimeTable(isFirstTime=false) {
 			const routine = todayDailyRoutine[i];
 			const timeTableLine = document.createElement("div");
 
-			if(/^[0-9].*/.test(routine[0])) { // もし1stなどの◯時間目なら
-				if(TIME_TABLE[now.da][Number(routine[0][0])-1] != null) {
+			if (/^[0-9].*/.test(routine[0])) { // もし1stなどの◯時間目なら
+				if (TIME_TABLE[now.da][Number(routine[0][0])-1] != null) {
 				timeTableLine.style.backgroundColor = SUBJECT_DATA[TIME_TABLE[now.da][Number(routine[0][0])-1]].color;
 				timeTableLine.innerHTML = SUBJECT_DATA[TIME_TABLE[now.da][Number(routine[0][0])-1]].name[0]; // 教科の1文字目を表示する
 				}
-			} else if(routine[0].includes("after") && !(routine[0] == "afterSchool")) { // after-1stのような休み時間なら
+			} else if (routine[0].includes("after") && !(routine[0] == "afterSchool")) { // after-1stのような休み時間なら
 				timeTableLine.style.backgroundColor = SUBJECT_DATA["containsAfter"].color;
 			} else {
 				timeTableLine.style.backgroundColor = SUBJECT_DATA[routine[0]].color;
@@ -336,7 +336,7 @@ function updateTimeTable(isFirstTime=false) {
 }
 
 document.addEventListener("visibilitychange",() => { // ページから離れて戻ってきた時にも実行して更新する
-	if(document.visibilityState === "visible") {
+	if (document.visibilityState === "visible") {
 		updateTimeTable(true);
 		el("otherTime").innerHTML = addZero(now.h) + ":" + addZero(now.mi)
 	}
@@ -349,11 +349,11 @@ updateTimeTable(true);
 
 let isTimeTableOpen = false;
 el("todayTimeTable").addEventListener("click",function() {
-	if(isTimeTableOpen) {
+	if (isTimeTableOpen) {
 		this.style.left = "-40px";
 		document.querySelectorAll("#todayTimeTable>div:not(#todayTimeTableNowSign)").forEach((e,i) => {
-			if(/^[0-9].*/.test(todayDailyRoutine[i][0])) { // もし1stなどの◯時間目なら
-				if(TIME_TABLE[now.da][Number(todayDailyRoutine[i][0][0])-1] != null) {
+			if (/^[0-9].*/.test(todayDailyRoutine[i][0])) { // もし1stなどの◯時間目なら
+				if (TIME_TABLE[now.da][Number(todayDailyRoutine[i][0][0])-1] != null) {
 					e.innerHTML = SUBJECT_DATA[TIME_TABLE[now.da][Number(todayDailyRoutine[i][0][0])-1]].name[0]; // 教科の1文字目を表示する
 				}
 			}
@@ -361,8 +361,8 @@ el("todayTimeTable").addEventListener("click",function() {
 	} else {
 		this.style.left = "0px";
 		document.querySelectorAll("#todayTimeTable>div:not(#todayTimeTableNowSign)").forEach((e,i) => {
-			if(/^[0-9].*/.test(todayDailyRoutine[i][0])) { // もし1stなどの◯時間目なら
-				if(TIME_TABLE[now.da][Number(todayDailyRoutine[i][0][0])-1] != null) {
+			if (/^[0-9].*/.test(todayDailyRoutine[i][0])) { // もし1stなどの◯時間目なら
+				if (TIME_TABLE[now.da][Number(todayDailyRoutine[i][0][0])-1] != null) {
 					e.innerHTML = SUBJECT_DATA[TIME_TABLE[now.da][Number(todayDailyRoutine[i][0][0])-1]].name;
 				}
 			}

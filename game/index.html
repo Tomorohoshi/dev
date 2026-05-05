@@ -87,7 +87,7 @@
 		<h1 class="titleAnimation" style="font-size: 50px;">ゲーム・ゲームゲーム</h1>
 		<h3 class="titleAnimation" style="margin-top:-40px; font-size:25px; font-weight: normal;">Title is 適当</h3>
 		<button id="playButton" style="animation: btFadein 4s linear	1 forwards; background-color: #484141;" onclick="
-			if(!title) {
+			if (!title) {
 				title = true;
 				el('title').style.animation = 'titlePlayButtonA 2s ease 1';
 				el('playButton').style.animation = 'playButtonA 3s ease 1 forwards';
@@ -130,7 +130,7 @@
 	function radioFn(No,idNumber) {String
 		radioResult[No-1] = el(`label${No}-${idNumber}`).innerHTML;
 		for(i=0;i<6;i++) {
-				if(i+1 == idNumber) {
+				if (i+1 == idNumber) {
 					el(`label${No}-${idNumber}`).style.color = "#5d9ed4";
 				} else {
 					el(`label${No}-${i+1}`).style.color = "#000";

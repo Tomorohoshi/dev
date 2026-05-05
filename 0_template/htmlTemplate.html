@@ -24,7 +24,7 @@
 		function elVal(id) {return el(id).value};
 		function all(elName) {return document.querySelectorAll(elName)};
 		function insert(before, string, number) {
-			if(number < 0) {
+			if (number < 0) {
 				return String(before).slice(0, number + 1) + string + String(before).slice(number + 1);
 			} else {
 				return String(before).slice(0, number + 1) + string + String(before).slice(-number);
@@ -33,7 +33,7 @@
 		function createEl(elementName, placeId, info) {
 			let create = document.createElement(elementName);
 			for(let item in info) {
-				if(item !== "class") {
+				if (item !== "class") {
 					create[item] = info[item];
 				} else {
 					create.classList.add(info[item]);
@@ -55,15 +55,15 @@
 			el(newId).style.position = "absolute";
 			el(newId).style.pointerEvents = "none";
 			el(origId).addEventListener("mousemove", (event) => {
-				if(cursorMenuPosition[origId][0] < el(newId).clientWidth) {cursorMenuPosition[origId][0] = el(newId).clientWidth;};
-				if(cursorMenuPosition[origId][1] < el(newId).clientHeight) {cursorMenuPosition[origId][1] = el(newId).clientHeight};
+				if (cursorMenuPosition[origId][0] < el(newId).clientWidth) {cursorMenuPosition[origId][0] = el(newId).clientWidth;};
+				if (cursorMenuPosition[origId][1] < el(newId).clientHeight) {cursorMenuPosition[origId][1] = el(newId).clientHeight};
 				el(newId).style.display = "flex";
-				if(event.pageX <= window.innerWidth - cursorMenuPosition[origId][0]) {//もしカーソルのX座標が(ウィンドウの横幅-要素の横幅)以下なら
+				if (event.pageX <= window.innerWidth - cursorMenuPosition[origId][0]) {//もしカーソルのX座標が(ウィンドウの横幅-要素の横幅)以下なら
 					el(newId).style.left = event.pageX + "px";
 				} else {
 					el(newId).style.left = (window.innerWidth - el(newId).clientWidth/*別にclientである意味はない*/) + "px";
 				};
-				if(event.pageY <= window.innerHeight - cursorMenuPosition[origId][1]) {//上と同じようなこと
+				if (event.pageY <= window.innerHeight - cursorMenuPosition[origId][1]) {//上と同じようなこと
 					el(newId).style.top = event.pageY + "px";
 				} else {
 					el(newId).style.top = (window.innerHeight - el(newId).clientHeight/*こっちも同じ*/) + "px";

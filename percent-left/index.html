@@ -402,8 +402,8 @@
 			const decimalPlace = el("decimalPlace").value;
 			square.style.width = `calc((100vw - 70px) * ${percent})`;
 			el("outputPercent").textContent = `${(percent*100).toFixed(decimalPlace)}%`;
-			if(doUseMiddleColor) {
-				if(percent < 0.5) {
+			if (doUseMiddleColor) {
+				if (percent < 0.5) {
 						el("outputSquare").style.backgroundColor = colorBlend(
 						pickrs.middleColor.getColor().toRGBA().toString(),
 						pickrs.minColor.getColor().toRGBA().toString(),
@@ -441,7 +441,7 @@
 			const timeForM6 = 6 - timeFor;
 			nowUpdate();
 			for(let i=0;i<timeForM6;i++) {
-				if(i == 4) { // 月の場合
+				if (i == 4) { // 月の場合
 					now[5-i] += now[6-i]/(new Date(now[0], now[1], 0)).getDate();
 				} else {
 					now[5-i] += now[6-i]/CARRY_VALUE[6-i];
@@ -463,7 +463,7 @@
 		el("doUseMiddleColor").oninput = function() {
 			const middleColor = document.querySelectorAll(".pickr")[1];
 			const maxColorParent = el("maxColorParent");
-			if(this.checked) {
+			if (this.checked) {
 				middleColor.style.opacity = "1";
 				maxColorParent.style.translate = "0";
 			} else {
@@ -481,8 +481,8 @@
 		};
 
 		el("doDisplayText").oninput = function() {
-			if(this.checked) {
-				if(el("displaySize").value == "0") {
+			if (this.checked) {
+				if (el("displaySize").value == "0") {
 					el("displaySize").value = 1;
 					el("outputPercent").style.fontSize = "1.5em";
 					el("displaySizeOutput").innerHTML = "×1.0";
@@ -507,7 +507,7 @@
 		};
 
 		el("doUseOriginalFont").oninput = function() {
-			if(this.checked) {
+			if (this.checked) {
 				el("outputPercent").style.fontFamily = '"7segFont", monospace';
 				el("useNormalFont").style.color = "black";
 				el("useOriginalFont").style.color = "#0af";

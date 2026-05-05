@@ -145,19 +145,19 @@
 			howMany:	document.getElementById("howMany")
 		};
 	function disabled() {
-		if(ready.min && ready.max && ready.times && Number(valJS.min.value) <= Number(valJS.max.value) && Number(valJS.min.value) >= 2 && Number(valJS.times.value) >= 1 && Number(valJS.times.value) <= 1000) {
+		if (ready.min && ready.max && ready.times && Number(valJS.min.value) <= Number(valJS.max.value) && Number(valJS.min.value) >= 2 && Number(valJS.times.value) >= 1 && Number(valJS.times.value) <= 1000) {
 			valJS.start.disabled = false;
 		} else {
 			valJS.start.disabled = true;
 		};
-		if(!(valJS.min.value == "" && valJS.max.value == "" && valJS.times.value == "")) {
+		if (!(valJS.min.value == "" && valJS.max.value == "" && valJS.times.value == "")) {
 			valJS.valReset.disabled = false;
 		} else {
 			valJS.valReset.disabled = true;
 		};
 	};
 	function keyResetFn() {
-		if(!(valJS.timesKey.innerHTML === ":" && valJS.powerKey.innerHTML === "^")) {
+		if (!(valJS.timesKey.innerHTML === ":" && valJS.powerKey.innerHTML === "^")) {
 			valJS.keyReset.disabled = false;
 		} else {
 			valJS.keyReset.disabled = true;
@@ -169,7 +169,7 @@
 		valJS.howMany.innerHTML = `${howQ}/${valJS.times.value}問目`;
 	};
 	valJS.min.addEventListener("input",() => {
-		if(valJS.min.value == "") {
+		if (valJS.min.value == "") {
 			ready.min = false;
 		} else {
 			ready.min = true;
@@ -177,7 +177,7 @@
 		disabled();
 	});
 	valJS.max.addEventListener("input",() => {
-		if(valJS.max.value == "") {
+		if (valJS.max.value == "") {
 			ready.max = false;
 		} else {
 			ready.max = true;
@@ -185,7 +185,7 @@
 		disabled();
 	});
 	valJS.times.addEventListener("input",() => {
-		if(valJS.times.value == "") {
+		if (valJS.times.value == "") {
 			ready.times = false;
 		} else {
 			ready.times = true;
@@ -193,38 +193,38 @@
 		disabled();
 	});
 	document.body.addEventListener("keydown",event => {//Too Long!
-		if(!(!started ||event.ctrlKey || event.shiftKey || event.altKey || event.metaKey || event.key === "Enter" || event.key === "Backspace" || event.key === valJS.timesKey.innerHTML || event.key === valJS.powerKey.innerHTML)) {
+		if (!(!started ||event.ctrlKey || event.shiftKey || event.altKey || event.metaKey || event.key === "Enter" || event.key === "Backspace" || event.key === valJS.timesKey.innerHTML || event.key === valJS.powerKey.innerHTML)) {
 			valJS.type.innerHTML +=	event.key;
 		} else {
-			if(event.key === "Backspace") {
-				if(type.innerHTML.length > 3) {
+			if (event.key === "Backspace") {
+				if (type.innerHTML.length > 3) {
 				valJS.type.innerHTML = type.innerHTML.slice(0,-1);
 				};
 			} else {
-				if(event.key === valJS.timesKey.innerHTML) {
-					if(valJS.type.innerHTML.slice(-1) !== "×") {
+				if (event.key === valJS.timesKey.innerHTML) {
+					if (valJS.type.innerHTML.slice(-1) !== "×") {
 						valJS.type.innerHTML += "×";
 					};
 				} else {
-					if(event.key === valJS.powerKey.innerHTML) {
-						if(valJS.type.innerHTML.slice(-1) !== "^") {
+					if (event.key === valJS.powerKey.innerHTML) {
+						if (valJS.type.innerHTML.slice(-1) !== "^") {
 							valJS.type.innerHTML += "^"
 						};
 					} else {
-						if(event.key === "Enter") {
-								if(valJS.type.innerHTML !== "入力:") {
+						if (event.key === "Enter") {
+								if (valJS.type.innerHTML !== "入力:") {
 								var enter = valJS.type.innerHTML.split("");
 								for(let i=0;i<enter.length;i++) {
-									if(enter[i] === "^") {
+									if (enter[i] === "^") {
 										enter[i] = "**";
 									} else {
-										if(enter[i] === "×") {
+										if (enter[i] === "×") {
 											enter[i] = "*";
 										};
 									};
 								};
-								if(howQ !== valJS.times.value) {
-									if(valJS.Q.innerHTML == eval(enter.join(""))) {
+								if (howQ !== valJS.times.value) {
+									if (valJS.Q.innerHTML == eval(enter.join(""))) {
 										valJS.type.innerHTML = '入力:';
 										question();
 									};
@@ -248,11 +248,11 @@
 				};
 			};
 		};
-		if(valJS.timesKey.innerHTML === "Type Any Key") {
+		if (valJS.timesKey.innerHTML === "Type Any Key") {
 			valJS.timesKey.innerHTML = event.key;
 			keyResetFn();
 		};
-		if(valJS.powerKey.innerHTML === "Type Any Key") {
+		if (valJS.powerKey.innerHTML === "Type Any Key") {
 			valJS.powerKey.innerHTML = event.key;
 			keyResetFn();
 		};
@@ -260,7 +260,7 @@
 </script>
 <script>
 	setInterval(() => {
-		if(started) {
+		if (started) {
 			time += .01
 			valJS.time.innerHTML = "Time:" + Math.ceil(time*100)/100
 		};

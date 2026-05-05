@@ -362,7 +362,7 @@
 						var intervalDao = setInterval(() => {
 							let beforeBestScore = highestScore;
 							shake();
-							if(beforeBestScore < highestScore) {
+							if (beforeBestScore < highestScore) {
 								clearInterval(intervalDao);
 							};
 						},0);
@@ -426,7 +426,7 @@
 			shakeHistory = ["", "", "", "", ""];
 		el("selectBuyTimes").addEventListener("input",() => {
 			let value = el("selectBuyTimes").value;
-			if((value.includes(".") || value.includes("-") || value == "0" || value != Number(value))) {
+			if ((value.includes(".") || value.includes("-") || value == "0" || value != Number(value))) {
 				el("selectBuyTimes").style.color = "red";
 				el("selectBuyTimes").style.backgroundColor = "#fcc";
 			} else {
@@ -438,7 +438,7 @@
 		});
 		function el(id) {return document.getElementById(id)};
 		function random(num = 1, isRoundDown = false) {
-			if(isRoundDown) {
+			if (isRoundDown) {
 				return Math.floor(Math.random() * num + 1);
 			} else {
 				return Math.random() * num + 1;
@@ -447,7 +447,7 @@
 		function createEl(elementName, placeId, info = {}) {
 			let create = document.createElement(elementName);
 			for(let item in info) {
-				if(item !== "class") {
+				if (item !== "class") {
 					create[item] = info[item];
 				} else {
 					create.classList.add(info[item]);
@@ -459,7 +459,7 @@
 			let result = 0n;
 			let decimalLength = String(mulVal).split(".")[1].length
 			for(let i=0;i<times;i++) {
-				if(String(mulVal).includes(".")) {
+				if (String(mulVal).includes(".")) {
 					result += (amount * BigInt(Math.round(mulVal**(i+1)*10**decimalLength))) / (10n**BigInt(decimalLength));
 				} else {
 					result += amount * mulVal**(i+1);
@@ -487,15 +487,15 @@
 			createEl("div", "body", Object.assign({id: newId, }, option));
 			el(newId).classList.add("cursorMenu");
 			el(origId).addEventListener("mousemove", (event) => {
-				if(cursorMenuPosition[origId][0] < el(newId).clientWidth) {cursorMenuPosition[origId][0] = el(newId).clientWidth;};
-				if(cursorMenuPosition[origId][1] < el(newId).clientHeight) {cursorMenuPosition[origId][1] = el(newId).clientHeight};
+				if (cursorMenuPosition[origId][0] < el(newId).clientWidth) {cursorMenuPosition[origId][0] = el(newId).clientWidth;};
+				if (cursorMenuPosition[origId][1] < el(newId).clientHeight) {cursorMenuPosition[origId][1] = el(newId).clientHeight};
 				el(newId).style.display = "flex";
-				if(event.pageX <= window.innerWidth - cursorMenuPosition[origId][0]) {//もしカーソルのX座標が(ウィンドウの横幅-要素の横幅)以下なら
+				if (event.pageX <= window.innerWidth - cursorMenuPosition[origId][0]) {//もしカーソルのX座標が(ウィンドウの横幅-要素の横幅)以下なら
 					el(newId).style.left = event.pageX + "px";
 				} else {
 					el(newId).style.left = (window.innerWidth - el(newId).clientWidth) + "px";
 				};
-				if(event.pageY <= window.innerHeight - cursorMenuPosition[origId][1]) {//上のやつをYにしてやってる
+				if (event.pageY <= window.innerHeight - cursorMenuPosition[origId][1]) {//上のやつをYにしてやってる
 					el(newId).style.top = event.pageY + "px";
 				} else {
 					el(newId).style.top = (window.innerHeight - el(newId).clientHeight) + "px";
@@ -521,21 +521,21 @@
 				length = value.length;
 			switch (mode) {
 				case "normal":
-					if(output) {
+					if (output) {
 						el(output).innerHTML = attached[0] + value + attached[1];
 					} else {
 						return attached[0] + value + attached[1];
 					};
 					break;
 				case "japanese":
-					if(output) {
+					if (output) {
 						el(output).innerHTML = attached[0] + japaneseConv(value, length) + attached[1];
 					} else {
 						return attached[0] + japaneseConv(value, length) + attached[1];
 					}
 					break;
 				case "power":
-					if(output) {
+					if (output) {
 						el(output).innerHTML = attached[0] + powerConv(value, length) + attached[1]
 					} else {
 						return attached[0] + powerConv(value, length) + attached[1];
@@ -544,15 +544,15 @@
 			};
 		};
 		function japaneseConv(value, length) {
-			if(length <= 4) {return value;} else {
-				if(length <= 72) {
+			if (length <= 4) {return value;} else {
+				if (length <= 72) {
 					return `${value.slice(0,(length-1)%4+1)}.${value.slice((length-1)%4 + 1,(length-1)%4+4)}` + (japaneseNum[0][Math.trunc((length-1)/4)]);
 				} else {
 					let
 						temporany = "",
 						binary = Math.trunc((length-1)/7).toString(2);
 					for(let i=0;i<binary.length;i++) {
-						if(Number(binary.slice(-(i+1)))) {
+						if (Number(binary.slice(-(i+1)))) {
 							temporany += japaneseNum[2][i];
 						};
 					};
@@ -563,7 +563,7 @@
 			};
 		};
 		function powerConv(value, length) {
-			if(length == 1) {
+			if (length == 1) {
 				return value + " e0";
 			} else {
 				return `${value[0]}.${value.slice(1, 4)}e${length - 1}`;
@@ -576,7 +576,7 @@
 			conversion(highestScore, mode, "highestScore", ["",`(${HSShakenTimes}回目)`]);
 			conversion(theoryScore, mode, "theoryScore", ["", `(${HSChance}%,${conversion(1 / HSChance, mode)}回に1回)`]);
 			for(let i=0;i<5;i++) {
-				if(i < totalShakes) {
+				if (i < totalShakes) {
 					conversion(shakeHistory[i], mode, `shakeHistory${i + 1}`);
 				};
 			};
@@ -589,22 +589,22 @@
 		};
 		function setNum(num, valName, idName = false, doConv = true, attached = ["", ""]) {
 			eval(`${valName} = num;`);
-			if(doConv) {
+			if (doConv) {
 				eval(`conversion(${valName},mode,idName,attached)`);
-			} else if(idName) {
+			} else if (idName) {
 				eval(`el(idName).innerHTML = attached[0] + ${valName} + attached[1];`);
 			};
 		};
 		function addNum(num, valName, idName = false, isBig = false, doConv = true, attached = ["", ""]) {
 			eval(`${valName} += ${isBig ? "BigInt" : ""}(num);`);
-			if(doConv) {
+			if (doConv) {
 				eval(`conversion(${valName},mode,idName,attached)`);
-			} else if(idName) {
+			} else if (idName) {
 				eval(`el(idName).innerHTML = attached[0] + ${valName} + attached[1];`);
 			};
 		};
 		/*function shakeBtColor() {
-			if(el("shakeBt").style.animation == "auto ease 0s 1 normal none running none") {
+			if (el("shakeBt").style.animation == "auto ease 0s 1 normal none running none") {
 				void el("shakeBt").offsetWidth;
 				el("shakeBt").style.animation = "colorAni .75s linear infinite";
 			} else {
@@ -613,7 +613,7 @@
 			};
 		};*/
 		function openInfo() {
-			if(el("openInfo").style.scale == "1 -1") {
+			if (el("openInfo").style.scale == "1 -1") {
 				el("openInfo").style.scale = "1";
 				el("infoDiv").style.display = "none";
 			} else {
@@ -631,13 +631,13 @@
 				index = diceInfo[i];
 				for(let j=0;j<index.length;j++) {
 					content = index[j];
-					if(i === 0) {
+					if (i === 0) {
 						content.value = random(content.max, true);
 					} else {
 						content.value = (random() < content.chance + 1) ? random(content.max, true) :  -1 // 普通の1と区別するために-1にする
 					};
 					el(`${i + 1}-${j + 1}Dice`).style.color = (content.value === -1) ? "#888" : "#000";
-					if(content.value === -1) {
+					if (content.value === -1) {
 						content.value = 1; // ここで-1を直す
 					};
 					el(`${i + 1}-${j + 1}Dice`).innerHTML = content.value;
@@ -657,7 +657,7 @@
 			};
 			addNum(result, "score", "score", true);
 			addNum(result, "totalScore", "totalScore", true);
-			if(result > highestScore) {
+			if (result > highestScore) {
 				setNum(totalShakes, "HSShakenTimes")
 				setNum(result, "highestScore", "highestScore", true, ["", `(${HSShakenTimes}回目)`]);
 				el("addedScore").style.color = "red";
@@ -717,7 +717,7 @@
 			let addTypeDiceInfo = diceInfo[type-1];
 			switch (type) {
 				case 1:
-					if(diceInfo[0].length !== 0) {
+					if (diceInfo[0].length !== 0) {
 						createEl("span", `${type}Parent`, {innerHTML: "+", style: "translate: 0 -35px;"});
 					};
 					addTypeDiceInfo[addTypeDiceInfo.length] = {min: 1, max: 6, value: null, amountMax: 20n, amountMin: 300n}; //初期値として 

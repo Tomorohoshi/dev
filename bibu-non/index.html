@@ -142,7 +142,7 @@
 		function createEl(elementName, placeId, info) {
 			let create = document.createElement(elementName);
 			for(let item in info) {
-				if(item !== "class") {
+				if (item !== "class") {
 					create[item] = info[item];
 				} else {
 					create.classList.add(info[item]);
@@ -152,7 +152,7 @@
 		};
 		function playSound(frequency) {
 			try {
-			if(!audioContext) {
+			if (!audioContext) {
 				audioContext = new (window.AudioContext || window.webkitAudioContext)();
 			};
 			audioPlayer = audioContext.createOscillator();
@@ -163,7 +163,7 @@
 		}catch(error) {alert(`${error.name}\n${error.stack}`)}
 		};
 		function stopSound() {
-			if(audioPlayer) {
+			if (audioPlayer) {
 				audioPlayer.stop();
 				audioPlayer.disconnect();
 				audioPlayer = null;

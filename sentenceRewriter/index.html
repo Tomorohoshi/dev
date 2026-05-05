@@ -209,7 +209,7 @@
 		function createEl(elementName,placeId,info) {
 			let create = document.createElement(elementName);
 			for(let item in info) {
-				if(item !== "class") {
+				if (item !== "class") {
 					create[item] = info[item];
 				} else {
 					create.classList.add(info[item]);
@@ -229,13 +229,13 @@
 			el("select").classList.remove("redAnimation","blueAnimation");
 			el("parentDiv").classList.add("toggleFadeOut");
 			fontSizeData = el("fontSize").value;
-			if(selectValue === "replace") {
+			if (selectValue === "replace") {
 				replaceData.beforeRadio[0] = el("before1").checked;
 				replaceData.beforeRadio[1] = el("before2").checked;
 				replaceData.afterRadio[0] = el("after1").checked;
 				replaceData.afterRadio[1] = el("after2").checked;
 				for(const name in replaceData) {
-					if(Array.isArray(replaceData[name])) {
+					if (Array.isArray(replaceData[name])) {
 						continue;
 					} else {
 						replaceData[name] = el(name).value
