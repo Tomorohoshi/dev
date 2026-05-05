@@ -63,7 +63,7 @@ function englishConv(value,length) {
 		case (valLog < 3):
 			return value;
 		default:
-			const displayLength = valLog % 3 + 1;
+			const displayLength = (length - 1) % 3 + 1;
 			const decimal = value.slice(displayLength, displayLength+3);
 			const display = value.slice(0, displayLength) + "." + decimal;
 			let firstUnit;
@@ -76,28 +76,36 @@ function englishConv(value,length) {
 			const thirdUnit = englishNum[3][Math.trunc(((valLogM3-3)%3000+3)/300)] // [3]
 			return display + firstUnit + secondUnit + thirdUnit
 	}
-};
+}
 
 function japaneseConv(value,length) {
-	if(length <= 4) {return value;} else {
-		if(length <= 72) {
-			return `${value.slice(0,(length-1)%4+1)}.${value.slice((length-1)%4+1,(length-1)%4+4)}` + (japaneseNum[0][Math.trunc((length-1)/4)]);
-		} else {
-			let
-				temporany = "",
-				binary = Math.trunc((length-1)/7).toString(2);
+	const valLog = length - 1;
+	switch (true) {
+		case (valLog < 4):
+			return value;
+		case (valLog < 72):
+			const displayLength = (length - 1) % 4 + 1;
+			const decimal = value.slice(displayLength, displayLength+3);
+			const display = value.slice(0, displayLength) + "." + decimal;
+			return display + japaneseNum[0][Math.trunc((valLog)/4)];
+		default:
+			let unitPart = "";
+			let binary = Math.trunc((length-1)/7).toString(2);
+			const longDisplayLength = (length - 1) % 7 + 1;
 			for(let i=0;i<binary.length;i++) {
-				if(Number(binary.slice(-(i+1)))) {
-					temporany += japaneseNum[2][i];
-				};
-			};
-			return (((length-1)%7+1 <= 5) ?
-				(`${value.slice(0,(length-1)%7+1)}.${value.slice((length-1)%7+1,(length-1)%7+4)}`) :
-				(`${value.slice(0,(length-1)%7-4)}.${value.slice((length-1)%7-4,(length-1)%7-1)}${japaneseNum[1]}`)) +
-				temporany;
-		};
-	};
-};
+				if(Number(binary.slice(-(i+1))[0])) { // binaryの最後からi+1文字目が1だったら
+					unitPart += japaneseNum[2][i];
+				}
+			}
+			let longDisplay;
+			if((length-1)%7+1 <= 5) {
+				longDisplay = `${value.slice(0, longDisplayLength)}.${value.slice(longDisplayLength, longDisplayLength+3)}`
+			} else {
+				longDisplay = `${value.slice(0, longDisplayLength-5)}.${value.slice(longDisplayLength-5, longDisplayLength-2)}` + japaneseNum[1]
+			}
+			return longDisplay + unitPart
+	}
+}
 
 function powerConv(value,length) {
 	if(length == 1) {
@@ -105,7 +113,7 @@ function powerConv(value,length) {
 	} else {
 		return `${value[0]}.${value.slice(1,4)} × 10^${length-1}`;
 	}
-};
+}
 
 function unicodeConv(value,length) {
 	let
@@ -124,6 +132,6 @@ function unicodeConv(value,length) {
 		}
 	};
 	return result;
-};
+}
 
 conversion(el("input").value);
