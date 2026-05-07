@@ -108,25 +108,25 @@ function japaneseConv(value,length) {
 }
 
 function powerConv(value,length) {
-	if (length == 1) {
+	const valLog = length - 1;
+	if (valLog === 0) {
 		return value + " × 10^0"
 	} else {
-		return `${value[0]}.${value.slice(1,4)} × 10^${length-1}`;
+		return `${value[0]}.${value.slice(1,4)} × 10^${valLog}`;
 	}
 }
 
 function unicodeConv(value,length) {
-	let
-		before = BigInt(value).toString(16),//16進数に変換したもの
-		result = "";
-	el("subP").innerHTML = `${BigInt(value).toString(16)},${before.length/4}`;
+	let hexadecimal = BigInt(value).toString(16); // 16進数に変換したもの
+	let result = "";
+	el("subP").innerHTML = `${hexadecimal},${hexadecimal.length/4}`;
 	// 桁数が足りなければ先頭に"0"を追加
 	while (before.length % 4 !== 0) {
 		before = '0' + before;
 	};
 	// 4桁ごとに分割してUnicodeに変換
 	for(let i=0;i<before.length;i+=4) {
-		if (parseInt(before.substring(i,i+4),16) == "0") {result += "(0)"
+		if (parseInt(before.substring(i,i+4),16) == "0") {result += "(0)";
 		} else {
 			result += String.fromCharCode(parseInt(before.substring(i,i+4),16));
 		}
