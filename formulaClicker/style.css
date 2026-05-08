@@ -115,19 +115,26 @@ body {
 	flex-wrap: wrap;
 }
 
-#upgrade>button {
+#upgrade>span {
+	width: min(500px, calc(100vw - 20px));
+	margin: 5px 0;
+	margin-top: 42px;
+	border: 1.5px solid #ccc;
+	border-radius: 3px;
+
+}
+
+#upgrade button.buyBt {
 	position: relative;
 	display: inline-flex;
 	justify-content: space-between;
-	width: min(500px, calc(100vw - 20px));
-	font-size: 1.6rem;
+	width: 100%;
+	height: calc(100% - 30px);
+	border: 0;
 	padding: 5px 10px;
-	margin: 5px 0;
-	background-color: #333;
-	color: #fff;
-	border: 1.5px solid #ccc;
-	border-radius: 3px;
+	font-size: 1.6rem;
 	cursor: pointer;
+	background-color: #333;
 	--beforeWidth: 0%;
 
 	&::before {
@@ -142,4 +149,31 @@ body {
 
 	.left {text-align: left;}
 	.right {text-align: right;}
+}
+
+.gradeSelect {
+	text-align: center;
+	width: 100%;
+	height: 30px;
+	background-color: #2f2f2f;
+
+	&>* {height: 30px;}
+
+	button {
+		width: 10%;
+		margin: auto 5%;
+		font-size: 1.5em;
+		line-height: 15px;
+		background-color: transparent;
+		border: transparent;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+
+	span {
+		width: 60%;
+		margin: auto 5%;
+		font-size: 1.5em;
+		line-height: 15px;
+	}
 }

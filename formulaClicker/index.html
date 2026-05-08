@@ -14,8 +14,6 @@
 		gtag('config', 'G-G3VRHWGPB7');
 	</script>
 
-	<!-- <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
-
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.css" integrity="sha384-DLNWBifkkOES5azVMtIZ7RYukF2HBwDMBcPyDl6VnXTdJKlv5aO1s6mnOLE0QUyP" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.js" integrity="sha384-SReR3XDzHJ+xHgprjPZ5oBp+3gHv4arv/iWnz2PGnkUH8lAYzPIIxY0C+I6F2G/o" crossorigin="anonymous"></script>
 
@@ -59,22 +57,29 @@
 	</div>
 	<div id="tab">
 		<div id="upgrade">
-			<button id="mUpgrade">
-				<span class="left">
-					<span class="title">
-						<span class="formula">m</span>
-						<span>を解放</span>
+			<span id="mUpgrade">
+				<div class="gradeSelect">
+					<button>←</button>
+					<span>Grade 1</span>
+					<button>→</button>
+				</div>
+				<button class="buyBt">
+					<span class="left">
+						<span class="title">
+							<span class="formula">m</span>
+							<span>を解放</span>
+						</span>
+						<br>
+						<span class="level">0</span>
 					</span>
-					<br>
-					<span class="level">0</span>
-				</span>
-				</span>
-				<span class="right">
-					<span class="effect formula">t ← \times m</span>
-					<br>
-					<span class="cost formula">s_u ← + 5</span>
-				</span>
-			</button>
+					</span>
+					<span class="right">
+						<span class="effect formula">t ← \times m</span>
+						<br>
+						<span class="cost formula">s_u ← + 5</span>
+					</span>
+				</button>
+			</span>
 		</div>
 		<div id="settings">
 		</div>

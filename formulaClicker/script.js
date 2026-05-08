@@ -89,8 +89,9 @@ function update(currentTime) {
 		score = time * (upgradeData.m.value ?? 1) - usedScore - scoreError;
 		renderFormula(`t=${time.toFixed(2)}`, el("tPinned"));
 		renderFormula(`s=${score.toFixed(2)}`, el("sPinned"));
-		query("#upgrade>button", true).forEach(bt => {
-			const upgrade = upgradeData[bt.id.split("Upgrade")[0]];
+		query("#upgrade button.buyBt", true).forEach(bt => {
+			// const upgrade = upgradeData[bt.id.split("Upgrade")[0]];
+			const upgrade = upgradeData[bt.parentElement.id.split("Upgrade")[0]];
 			const scorePercent = Math.min(score / upgrade.cost, 1) * 100;
 			bt.style.setProperty("--beforeWidth", scorePercent + "%");
 			bt.style.opacity = scorePercent === 100 ? 1 : .5;
