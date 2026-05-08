@@ -21,19 +21,36 @@
 		<div id="display">
 			<span id="cookies">
 				<span id="cookieCount">0</span>
-				<span id="cookieCountUnit">個のクッキーを許可済み</span>
+				個のクッキーを許可済み
 			</span>
 		</div>
 		<div id="cookie">
 			<img src="data/info.svg" width="50">
-			<span id="cookieSentence">当ページでは、サイトの利便性向上のためCookieを使用しています。</span>
+			<span id="cookieSentence">
+				当ページでは、サイトの利便性向上のためCookieを使用しています。
+				<label><input type="checkbox" id="cookieAgree">
+					<span>プライバシーポリシー</span>に同意する</label>
+			</span>
 			<span id="cookieBts">
-				<button>拒否しない</button>
-				<button>同意する</button>
+				<button disabled>拒否しない</button>
+				<button disabled>許可する</button>
 			</span>
 		</div>
 	</div>
-	<div id="upgrade">TEST2</div>
+	<div id="upgrade">
+		<button id="dataMult">
+			<!-- <span class="icon"><img src="data/plus.svg" width="70"></span> -->
+			<span>使用するデータの量を増加</span>
+			<span>Lv. 0</span>
+			<br>
+			<span class="cost"><span>0</span>B を消費</span>
+		</button>
+		<button>
+			<span>パフォーマンスの不最適化</span>
+			<span>0</span>
+			<span class="cost"><span>0</span>Bを消費</span>
+		</button>
+	</div>
 	<script src="script.js"></script>
 </body>
 </html>

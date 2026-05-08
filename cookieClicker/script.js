@@ -62,6 +62,11 @@ function update(val, id) {
 	target.classList.add("valChanged");
 }
 
+el("cookieAgree").addEventListener("change", function() {
+	const isChecked = this.checked;
+	query("#cookieBts button", true).forEach(bt => bt.disabled = !isChecked);
+})
+
 query("#cookieBts button", true).forEach(bt => {
 	bt.onclick = () => {
 		cookies++;
@@ -70,5 +75,7 @@ query("#cookieBts button", true).forEach(bt => {
 		el("cookie").classList.remove("cookieReload");
 		void el("cookie").offsetWidth; // リフレッシュ
 		el("cookie").classList.add("cookieReload");
+		el("cookieAgree").checked = false;
+		query("#cookieBts button", true).forEach(bt => bt.disabled = true);
 	}
 })

@@ -33,12 +33,16 @@ body {
 	left: 50%;
 	transform: translateX(-50%);
 	text-align: center;
+	font-size: 1.5em;
 }
 
-#cookieCount {font-size: 2.5em;}
-#cookieCountUnit {
-	font-size: 1.5em;
-	margin-left: 2px;
+#cookieCount {font-size: 1.7em;}
+
+#cookieSentence label {
+	display: block;
+	margin-top: 10px;
+
+	span {text-decoration: underline 1px black;}
 }
 
 @keyframes cookieReload {
@@ -100,5 +104,26 @@ body {
 		border-radius: 5px;
 		cursor: pointer;
 		box-shadow: 0 3px 5px #000a;
+		transition: all .1s;
+
+		&:disabled {
+			opacity: .8;
+			filter: grayscale(1);
+		}
+	}
+}
+
+#upgrade {
+	border-left: 3px solid #38a;
+	background-color: #cef;
+
+	&>button {
+		display: block;
+		text-align: left;
+		width: stretch;
+		height: 70px;
+		font-size: 1.1em;
+		line-height: 1.8em;
+		margin: 5px 10px;
 	}
 }
