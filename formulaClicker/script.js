@@ -108,7 +108,7 @@ el("mUpgrade").onclick = function() {
 	if (upgrade.value == null) {
 		if (upgrade.cost > score) return;
 		el("m").style.display = "inline";
-		query("#mUpgrade .title>:not(.formula)").innerHTML = "の値を増やす";
+		query("#mUpgrade .title>:not(.formula)").innerHTML = "の値を増加";
 		buy(upgrade, 1, false);
 		upgrade.cost = 5;
 		upgrade.level = 1;
