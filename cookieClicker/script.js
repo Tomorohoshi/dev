@@ -1,0 +1,1 @@
+function el(id) {document.getElementById(id)}
