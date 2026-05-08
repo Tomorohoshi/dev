@@ -1,8 +1,17 @@
+let cookies = 0;
+
 /** この関数は、idから要素を取得します
  * @param {string} id 要素のID
  * @return {HTMLElement} 取得された要素
  */
-function el(id) {document.getElementById(id)}
+function el(id) {return document.getElementById(id)}
+/** この関数は、クエリを指定して、要素を取得します
+ * @param {string} query 要素のクエリ
+ * @param {boolean} isAll すべての要素を取得するかどうか
+ */
+function query(query, isAll=false) {
+	return isAll ? document.querySelectorAll(query) : document.querySelector(query)
+}
 
 /** この関数は、keyとvalueを指定して、cookieを保存します
  * @param {string} key cookieの名前
@@ -13,7 +22,6 @@ function save(key, value) {
 	document.cookie = `${key}=${value}; max-age=${60*60*24*365};`;
 	return document.cookie;
 }
-
 /** この関数は、keyを指定して、cookieを取得します
  * @param {string} key cookieの名前
  * @returns {string} 取得されたcookie
@@ -22,3 +30,22 @@ function load(key) {
 	const value = document.cookie.match(`(^|;) ?${key}=([^;]*)(;|$)`);
 	return value ? value[2] : null;
 }
+
+function update(val, id) {
+	const target = el(id);
+	target.innerHTML = val;
+	target.classList.remove("valChanged");
+	void target.offsetWidth; // リフレッシュ
+	target.classList.add("valChanged");
+}
+
+query("#cookieBts button", true).forEach(bt => {
+	bt.onclick = () => {
+		cookies++;
+		update(cookies, "cookieCount");
+		save("cookies", cookies);
+		el("cookie").classList.remove("cookieReload");
+		void el("cookie").offsetWidth; // リフレッシュ
+		el("cookie").classList.add("cookieReload");
+	}
+})
