@@ -118,12 +118,40 @@ body {
 	background-color: #cef;
 
 	&>button {
-		display: block;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 3px;
 		text-align: left;
 		width: stretch;
 		height: 70px;
 		font-size: 1.1em;
-		line-height: 1.8em;
+		background-color: #5a0;
+		border: 3px solid #5a0;
+		border-radius: 15px;
+		line-height: 1.5em;
 		margin: 5px 10px;
+		padding: 0;
+		overflow: hidden;
+
+		&>* {background-color: #dfc;}
+
+		.icon {
+			display: flex;
+			justify-content: center;
+			width: 64px;
+			height: 64px;
+			text-align: center;
+		}
+
+		.text {
+			height: 54px;
+			padding: 5px;
+
+			div {
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+			}
+		}
 	}
 }
