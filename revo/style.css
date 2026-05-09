@@ -83,7 +83,10 @@ h1#title {font-family: "boldFont";}
 
 	input {margin-left: 3px;}
 
-	>span>label {margin-left: 20px;}
+	>span>label {
+		white-space: nowrap;
+		margin-left: 20px;
+	}
 }
 
 #settings>fieldset {
