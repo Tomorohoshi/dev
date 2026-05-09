@@ -15,9 +15,105 @@
 	</script>
 
 	<link rel="stylesheet" href="style.css">
-	<title></title>
+	<title>Revolution Idleシュミレーター</title>
 </head>
 <body>
+	<h1 id="title">Revolution Idleシュミレーター</h1>
+	<details id="settings">
+		<summary>設定を開く</summary>
+		<fieldset id="allSpecify">
+			<legend>その他・一括指定</legend>
+			<span>ゲーム速度</span>
+			<span>
+				<label>×<input type="number" id="allGameSpeedMulti" min="0" step="any" value="1"></label>
+			</span>
+			<span>P.倍増</span>
+			<span>
+				<label>×<input type="number" id="allPMulti" min="0" step="any" value="1"></label>
+			</span>
+			<span>P.指数</span>
+			<span>
+				<label>^<input type="number" id="allPExp" min="0" step="any" value="1"></label>
+			</span>
+			<span style="font-size: .8em; grid-column: 1/3; margin-top: 10px;">※それぞれサークルの数値に加算→乗算されます</span>
+			<span>ラップ/秒</span>
+			<span>
+				<label>+<input type="number" id="allLapPlus" min="0" step="any" value="0"></label>
+				<label>×<input type="number" id="allLapMulti" min="0" step="any" value="1"></label>
+			</span>
+			<span>AscPow</span>
+			<span>
+				<label>+<input type="number" id="allAscPowPlus" min="0" step="any" value="0"></label>
+				<label>×<input type="number" id="allAscPowMulti" min="0" step="any" value="1"></label>
+			</span>
+			<span>マルチゲイン</span>
+			<span>
+				<label>+<input type="number" id="allMultPlus" min="0" step="any" value="0"></label>
+				<label>×<input type="number" id="allMultMulti" min="0" step="any" value="1"></label>
+			</span>
+		</fieldset>
+		<fieldset>
+			<legend><label>1. 赤<input id="isEnable1" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap1" type="number" min="0" step="any" value="0.2"></label>
+			<label>AscPow:<input id="ascPow1" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult1" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>2. オレンジ<input id="isEnable2" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap2" type="number" min="0" step="any" value="0.1"></label>
+			<label>AscPow:<input id="ascPow2" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult2" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>3. 黃<input id="isEnable3" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap3" type="number" min="0" step="any" value="0.0667"></label>
+			<label>AscPow:<input id="ascPow3" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult3" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>4. 緑<input id="isEnable4" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap4" type="number" min="0" step="any" value="0.05"></label>
+			<label>AscPow:<input id="ascPow4" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult4" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>5. 青緑<input id="isEnable5" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap5" type="number" min="0" step="any" value="0.04"></label>
+			<label>AscPow:<input id="ascPow5" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult5" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>6. シアン<input id="isEnable6" type="checkbox" checked></label></legend></label>
+			<label>ラップ/秒:<input id="lap6" type="number" min="0" step="any" value="0.0333"></label>
+			<label>AscPow:<input id="ascPow6" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult6" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>7. 青<input id="isEnable7" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap7" type="number" min="0" step="any" value="0.0286"></label>
+			<label>AscPow:<input id="ascPow7" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult7" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>8. 紫<input id="isEnable8" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap8" type="number" min="0" step="any" value="0.025"></label>
+			<label>AscPow:<input id="ascPow8" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult8" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>9. ピンク<input id="isEnable9" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap9" type="number" min="0" step="any" value="0.02222"></label>
+			<label>AscPow:<input id="ascPow9" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult9" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+		<fieldset>
+			<legend><label>10. 白<input id="isEnable10" type="checkbox" checked></label></legend>
+			<label>ラップ/秒:<input id="lap10" type="number" min="0" step="any" value="0.02"></label>
+			<label>AscPow:<input id="ascPow10" type="number" min="0" step="any" value="10"></label>
+			<label>マルチゲイン:<input id="mult10" type="number" min="0" step="any" value="0.01"></label>
+		</fieldset>
+	</details>
+
 	<script src="script.js"></script>
 </body>
 

@@ -1,0 +1,125 @@
+@font-face {
+	font-family: "originalFont";
+	src: url(/0_data/fonts/MPLUS1p-Regular.ttf) format("truetype");
+src: url(https://u-12031.github.io/0_data/fonts/MPLUS1p-Regular.ttf) format("truetype");
+	/* ↑codeswing用 */
+}
+
+@font-face {
+	font-family: "boldFont";
+	src: url(/0_data/fonts/MPLUS1p-Medium.ttf) format("truetype");
+src: url(https://u-12031.github.io/0_data/fonts/MPLUS1p-Medium.ttf) format("truetype");
+	/* ↑codeswing用 */
+}
+
+* {font-family: "originalFont";}
+
+h1#title {font-family: "boldFont";}
+
+#settings {
+	background-color: #eee;
+	padding: 10px;
+	margin: 20px;
+
+	summary {
+		font-size: 1.2em;
+		margin-bottom: 10px;
+	}
+
+	label:not(#allSpecify label) {
+		display: flex;
+		justify-content: space-between;
+		margin: 3px auto;
+	}
+
+	input[type="number"] {
+		width: 60px;
+		border: 1px solid black;
+		border-radius: 3px;
+
+		&:invalid {
+			color: red;
+			background-color: #fdd;
+		}
+
+		&:not(#allSpecify input) {margin-left: 15px;}
+	}
+}
+
+#settings>fieldset {
+	border: 2px solid;
+	padding: 10px;
+	margin: auto 5px;
+
+	&:not(#allSpecify) {display: inline;}
+
+	legend:not(#allSpecify legend) {text-align: center;}
+}
+
+#allSpecify {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 5px;
+
+	input {margin-left: 3px;}
+
+	>span>label {margin-left: 20px;}
+}
+
+#settings>fieldset {
+	&:nth-of-type(1) {
+		border-color: #000;
+		background-color: #fff;
+		color: #000;
+	}
+	&:nth-of-type(2) {
+		border-color: #800;
+		background-color: #fdd;
+		color: #300;
+	}
+	&:nth-of-type(3) {
+		border-color: #840;
+		background-color: #fed;
+		color: #320;
+	}
+	&:nth-of-type(4) {
+		border-color: #a80;
+		background-color: #ffd;
+		color: #330;
+	}
+	&:nth-of-type(5) {
+		border-color: #070;
+		background-color: #dfd;
+		color: #030;
+	}
+	&:nth-of-type(6) {
+		border-color: #076;
+		background-color: #dfe;
+		color: #032;
+	}
+	&:nth-of-type(7) {
+		border-color: #077;
+		background-color: #dff;
+		color: #033;
+	}
+	&:nth-of-type(8) {
+		border-color: #027;
+		background-color: #def;
+		color: #013;
+	}
+	&:nth-of-type(9) {
+		border-color: #307;
+		background-color: #edf;
+		color: #203;
+	}
+	&:nth-of-type(10) {
+		border-color: #707;
+		background-color: #fde;
+		color: #302;
+	}
+	&:nth-of-type(11) {
+		border-color: #222;
+		background-color: #fff;
+		color: #111;
+	}
+}
