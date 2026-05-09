@@ -248,6 +248,9 @@ function animationFrame(currentTime) {
 
 	const delta = (currentTime - lastTime) / 1000 * globalData.speed;
 	spendTime += delta;
+	spendTime = Math.round(spendTime * 100) / 100;
+	const spendTimePadded = spendTime.toString().padEnd(spendTime.toString().split(".")[0].length + 3, "0");
+	update(spendTimePadded + "秒プレイ", "spendTimeDisplay");
 	if(delta >= UPDATE_INTERVAL / 1000) {
 		lastTime = currentTime - (delta % UPDATE_INTERVAL);
 
