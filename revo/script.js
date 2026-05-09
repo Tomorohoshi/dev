@@ -3,73 +3,73 @@ let data = [
 		isEnable: true,
 		lap: .2,
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: .1,
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: 1/15, // = .0667
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: .05,
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: .04,
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: 1/30, // = .0333
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: 1/35, // = .0286
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: .025,
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: 1/45, // = .0222
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	},
 	{
 		isEnable: true,
 		lap: .02,
 		ascPow: 10,
-		mult: .01
+		multGain: .01
 	}
 ]
 let globalData = {
 	plus: {
 		lap: 0,
 		ascPow: 0,
-		mult: 0
+		multGain: 0
 	},
 	times: {
 		lap: 1,
 		ascPow: 1,
-		mult: 1
+		multGain: 1
 	},
 	speed: 1,
 	pMult: 1,
@@ -92,6 +92,7 @@ for(let i=0;i<data.length;i++) {
 	el(`isEnable${i+1}`).addEventListener("change", function() {
 		targetData.isEnable = this.checked;
 		query(`#settings>fieldset:nth-of-type(${i+2})`).style.opacity = this.checked ? 1 : .5;
+		query(`#main>span:nth-of-type(${i+2})`).style.display = this.checked ? "block" : "none";
 	});
 	el(`lap${i+1}`).addEventListener("input", function() {
 		targetData.lap = Number(this.value);
@@ -100,6 +101,6 @@ for(let i=0;i<data.length;i++) {
 		targetData.ascPow = Number(this.value);
 	});
 	el(`mult${i+1}`).addEventListener("input", function() {
-		targetData.mult = Number(this.value);
+		targetData.multGain = Number(this.value);
 	});
 }
