@@ -5,7 +5,7 @@
 }
 
 @keyframes valChanged {
-	from {scale: 1.25;}
+	from {scale: 1.2;}
 	to {scale: 1;}
 }
 
@@ -170,5 +170,5 @@ body {
 	font-size: 1.3em;
 	border-bottom: 3px solid #38a;
 
-	#byteCount {font-size: 1.5em;}
+	#byteCount {font-size: 1.4em;}
 }
