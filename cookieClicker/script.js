@@ -40,22 +40,6 @@ function load(key) {
 	return value ? value[2] : null;
 }
 
-/** この関数は、bytesに単位を付けます
- * @return {string} 単位付きのbytes
- */
-function byteConvert() {
-	let val = bytes;
-	let dividedTimes = 0;
-	while(val >= 1024) { // 何回割れるか数える
-		dividedTimes++;
-		val /= 1000n;
-	}
-	val = bytes;
-	for(let i=0;i<dividedTimes-1;i++) {val /= 1000n} // 数値型にするときに小数を残すために1回少なく割る
-	val = Number(val) / 1000; // 数値型に変換して最後の1回を割る
-	return val + UNIT[dividedTimes];
-}
-
 /** この関数は、表示する値を更新します
  * @param {number} val 更新先の値
  * @param {string} id 値を表示する要素のID
@@ -68,6 +52,30 @@ function update(val, id) {
 	target.classList.add("valChanged");
 }
 
+/** この関数は、bytesに単位を付け、表示します
+ * @param {string} id bytesを表示する要素のID
+*/
+function byteUpdate(id) {
+	const beforeResult = el(id).innerHTML;
+	let val = bytes;
+	let dividedTimes = 0;
+	let result = null;
+	while(val >= 1024) { // 何回割れるか数える
+		dividedTimes++;
+		val /= 1000n;
+	}
+	val = bytes;
+	if(dividedTimes == 0) {
+		result = val + UNIT[0];
+	} else {
+		for(let i=0;i<dividedTimes-1;i++) {val /= 1000n} // 数値型にするときに小数を残すために1回少なく割る
+		val = Number(val) / 1000; // 数値型に変換して最後の1回を割る
+		val = val.toFixed(2);
+		result = val + UNIT[dividedTimes];
+	}
+	if(beforeResult != result) update(result, id);
+}
+
 function animationFrame(currentTime) {
 	if (!animationStartedTime) {
 		animationStartedTime = currentTime;
@@ -76,14 +84,19 @@ function animationFrame(currentTime) {
 
 	const delta = currentTime - lastTime;
 	if (delta >= UPDATE_INTERVAL) {
-		lastTime = currentTime - (delta % UPDATE_INTERVAL);
+		const beforeBytes = bytes;
 		const bytesIncreasePerSec = cookies * eachCookieByteIncrease;
+		lastTime = currentTime - (delta % UPDATE_INTERVAL);
 		bytes *= 1000n; // /1000する前の値を加えるので、元の値を*1000する
+		bytes += BigInt(Math.round(bytesDecimal * 1000)); // 3桁までの小数は格納する
 		bytes += bytesIncreasePerSec * BigInt(Math.round(delta)); // 小数部分が消えてしまうので、/1000は後でやる
-		bytesDecimal += bytes.toString().slice(-3) / 1000; // 小数部分は別に保存
+		bytesDecimal = bytes.toString().slice(-3) / 1000; // 小数部分は別に保存
 		bytes /= 1000n; // /1000する
 		bytes += BigInt(Math.floor(bytesDecimal)); // 小数部分の整数部分に繰り上がった部分を足す
 		bytesDecimal = bytesDecimal % 1; // 小数部分だけにする
+
+		console.log(bytes.toString().slice(-3));
+		byteUpdate("byteCount");
 	}
 
 	requestAnimationFrame(animationFrame);
@@ -100,6 +113,7 @@ query("#cookieBts button", true).forEach(bt => {
 	bt.onclick = () => {
 		cookies++;
 		update(cookies, "cookieCount");
+		update(cookies, "upgradeCookieCount");
 		save("cookies", cookies);
 		el("cookie").classList.remove("cookieReload");
 		void el("cookie").offsetWidth; // リフレッシュ
