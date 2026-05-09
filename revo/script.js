@@ -78,6 +78,13 @@ let globalData = {
 
 function el(id) {return document.getElementById(id)}
 function query(query, isAll=false) {return isAll ? document.querySelectorAll(query) : document.querySelector(query)}
+function update(val, id) {
+	const target = el(id);
+	target.innerHTML = val;
+	target.classList.remove("valChanged");
+	void target.offsetWidth; // リフレッシュ
+	target.classList.add("valChanged");
+}
 
 for(let i=0;i<data.length;i++) {
 	const targetData = data[i];

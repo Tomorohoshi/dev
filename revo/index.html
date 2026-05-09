@@ -15,10 +15,103 @@
 	</script>
 
 	<link rel="stylesheet" href="style.css">
-	<title>Revolution Idleシュミレーター</title>
+	<title>Revolution Idle シミュレーター</title>
 </head>
 <body>
-	<h1 id="title">Revolution Idleシュミレーター</h1>
+	<h1 id="title">Revolution Idle シミュレーター</h1>
+	<div id="control"></div>
+	<div id="main">
+		<span>
+			<div id="mainScales" style="grid-row: 1/2;">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div style="grid-row: 3/4;">ラップ数</div>
+			<div style="grid-row: 4/5;">マルチ</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar1"></div>
+			</div>
+			<div class="barLabel">1. 赤</div>
+			<div id="laps1">0</div>
+			<div id="multDisplay1">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar2"></div>
+			</div>
+			<div class="barLabel">2. オレンジ</div>
+			<div id="laps2">0</div>
+			<div id="multDisplay2">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar3"></div>
+			</div>
+			<div class="barLabel">3. 黄</div>
+			<div id="laps3">0</div>
+			<div id="multDisplay3">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar4"></div>
+			</div>
+			<div class="barLabel">4. 緑</div>
+			<div id="laps4">0</div>
+			<div id="multDisplay4">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar5"></div>
+			</div>
+			<div class="barLabel">5. 青緑</div>
+			<div id="laps5">0</div>
+			<div id="multDisplay5">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar6"></div>
+			</div>
+			<div class="barLabel">6. シアン</div>
+			<div id="laps6">0</div>
+			<div id="multDisplay6">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar7"></div>
+			</div>
+			<div class="barLabel">7. 青</div>
+			<div id="laps7">0</div>
+			<div id="multDisplay7">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar8"></div>
+			</div>
+			<div class="barLabel">8. 紫</div>
+			<div id="laps8">0</div>
+			<div id="multDisplay8">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar9"></div>
+			</div>
+			<div class="barLabel">9. ピンク</div>
+			<div id="laps9">0</div>
+			<div id="multDisplay9">1</div>
+		</span>
+		<span>
+			<div class="barParent">
+				<div id="bar10"></div>
+			</div>
+			<div class="barLabel">10. 白</div>
+			<div id="laps10">0</div>
+			<div id="multDisplay10">1</div>
+		</span>
+	</div>
 	<details id="settings">
 		<summary>設定を開く</summary>
 		<fieldset id="allSpecify">
@@ -65,7 +158,7 @@
 			<label>マルチゲイン:<input id="mult2" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
-			<legend><label>3. 黃<input id="isEnable3" type="checkbox" checked></label></legend>
+			<legend><label>3. 黄<input id="isEnable3" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap3" type="number" min="0" step="any" value="0.0667"></label>
 			<label>AscPow:<input id="ascPow3" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult3" type="number" min="0" step="any" value="0.01"></label>

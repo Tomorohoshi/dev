@@ -12,9 +12,96 @@ src: url(https://u-12031.github.io/0_data/fonts/MPLUS1p-Medium.ttf) format("true
 	/* ↑codeswing用 */
 }
 
+@keyframes valChanged {
+	from {scale: 1.2;}
+	to {scale: 1;}
+}
+
 * {font-family: "originalFont";}
 
 h1#title {font-family: "boldFont";}
+
+#main {
+	display: grid;
+	grid-template-columns: repeat(11, 70px);
+	gap: 10px;
+	background-color: #222;
+	color: white;
+	overflow-x: auto;
+	padding: 10px;
+
+	&>span:nth-of-type(1) {
+		text-align: right;
+
+		* {font-family: "boldFont";}
+	}
+}
+
+#main>span {
+	display: grid;
+	grid-template-rows: 270px 1.2fr repeat(2, 1fr);
+	width: 70px;
+	line-height: 1.8em;
+	color: var(--color);
+
+	.barParent {
+		position: relative;
+		margin: 10px 15px;
+		height: 250px;
+		width: 40px;
+
+		div {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: inherit;
+			height: 0%; /* 初期値 */
+			background-color: var(--color);
+		}
+	}
+
+	.barLabel {
+		font-family: "boldFont";
+	}
+
+	div:not(.barParent, .barParent div ,#main>span:nth-of-type(1) div) {
+		display: flex;
+		justify-content: center;
+		width: 70px;
+		white-space: nowrap;
+	}
+
+	&:nth-of-type(2) {--color: #ff5959}
+	&:nth-of-type(3) {--color: #ffa64d}
+	&:nth-of-type(4) {--color: #f8f84a}
+	&:nth-of-type(5) {--color: #a0f549}
+	&:nth-of-type(6) {--color: #4bfda4}
+	&:nth-of-type(7) {--color: #4cffff}
+	&:nth-of-type(8) {--color: #3f3fd4}
+	&:nth-of-type(9) {--color: #9f49f4}
+	&:nth-of-type(10) {--color: #fb4bfb}
+	&:nth-of-type(11) {--color: #fff}
+}
+
+#mainScales {
+	position: relative;
+	margin-top: 10px;
+	height: 250px;
+
+	div {
+		position: absolute;
+		left: 100%;
+		width: calc(80px * 10);
+		height: 2px;
+		background-color: #fff2;
+		translate: 0 -50%;
+	}
+
+	&>div:nth-of-type(1) {top: 0;}
+	&>div:nth-of-type(2) {top: 25%;}
+	&>div:nth-of-type(3) {top: 50%;}
+	&>div:nth-of-type(4) {top: 75%;}
+}
 
 #settings {
 	background-color: #eee;
