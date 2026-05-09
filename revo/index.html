@@ -20,7 +20,7 @@
 <body>
 	<h1 id="title">Revolution Idle シミュレーター</h1>
 	<div id="control">
-		<button>開始</button>
+		<button id="startBt">開始</button>
 	</div>
 	<details id="settings">
 		<summary>設定を開く</summary>
@@ -28,26 +28,21 @@
 			<legend>その他・一括指定</legend>
 			<span>ゲーム速度</span>
 			<span>
-				<label>×<input type="number" id="allGameSpeedMulti" min="0" step="any" value="1"></label>
+				<label>×<input type="number" id="gameSpeedMult" min="0" step="any" value="1"></label>
 			</span>
 			<span>P.倍増</span>
 			<span>
-				<label>×<input type="number" id="allPMulti" min="0" step="any" value="1"></label>
+				<label>×<input type="number" id="pMult" min="0" step="any" value="1"></label>
 			</span>
 			<span>P.指数</span>
 			<span>
-				<label>^<input type="number" id="allPExp" min="0" step="any" value="1"></label>
+				<label>^<input type="number" id="pExp" min="0" step="any" value="1"></label>
 			</span>
 			<span style="font-size: .8em; grid-column: 1/3; margin-top: 10px;">※それぞれサークルの数値に加算→乗算されます</span>
 			<span>ラップ/秒</span>
 			<span>
 				<label>+<input type="number" id="allLapPlus" min="0" step="any" value="0"></label>
 				<label>×<input type="number" id="allLapMulti" min="0" step="any" value="1"></label>
-			</span>
-			<span>AscPow</span>
-			<span>
-				<label>+<input type="number" id="allAscPowPlus" min="0" step="any" value="0"></label>
-				<label>×<input type="number" id="allAscPowMulti" min="0" step="any" value="1"></label>
 			</span>
 			<span>マルチゲイン</span>
 			<span>
@@ -58,65 +53,59 @@
 		<fieldset>
 			<legend><label>1. 赤<input id="isEnable1" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap1" type="number" min="0" step="any" value="0.2"></label>
-			<label>AscPow:<input id="ascPow1" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult1" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>2. オレンジ<input id="isEnable2" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap2" type="number" min="0" step="any" value="0.1"></label>
-			<label>AscPow:<input id="ascPow2" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult2" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>3. 黄<input id="isEnable3" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap3" type="number" min="0" step="any" value="0.0667"></label>
-			<label>AscPow:<input id="ascPow3" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult3" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>4. 緑<input id="isEnable4" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap4" type="number" min="0" step="any" value="0.05"></label>
-			<label>AscPow:<input id="ascPow4" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult4" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>5. 青緑<input id="isEnable5" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap5" type="number" min="0" step="any" value="0.04"></label>
-			<label>AscPow:<input id="ascPow5" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult5" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>6. シアン<input id="isEnable6" type="checkbox" checked></label></legend></label>
 			<label>ラップ/秒:<input id="lap6" type="number" min="0" step="any" value="0.0333"></label>
-			<label>AscPow:<input id="ascPow6" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult6" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>7. 青<input id="isEnable7" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap7" type="number" min="0" step="any" value="0.0286"></label>
-			<label>AscPow:<input id="ascPow7" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult7" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>8. 紫<input id="isEnable8" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap8" type="number" min="0" step="any" value="0.025"></label>
-			<label>AscPow:<input id="ascPow8" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult8" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>9. ピンク<input id="isEnable9" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap9" type="number" min="0" step="any" value="0.02222"></label>
-			<label>AscPow:<input id="ascPow9" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult9" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 		<fieldset>
 			<legend><label>10. 白<input id="isEnable10" type="checkbox" checked></label></legend>
 			<label>ラップ/秒:<input id="lap10" type="number" min="0" step="any" value="0.02"></label>
-			<label>AscPow:<input id="ascPow10" type="number" min="0" step="any" value="10"></label>
 			<label>マルチゲイン:<input id="mult10" type="number" min="0" step="any" value="0.01"></label>
 		</fieldset>
 	</details>
 	<div id="main">
+		<div id="scoreDisplay">
+			0 ◉
+		</div>
+
 		<span>
 			<div id="mainScales" style="grid-row: 1/2;">
 				<div></div>
@@ -134,6 +123,7 @@
 		<div class="barLabel">1. 赤</div>
 		<div id="laps1">0</div>
 		<div id="multDisplay1">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -142,6 +132,7 @@
 		<div class="barLabel">2. オレンジ</div>
 		<div id="laps2">0</div>
 		<div id="multDisplay2">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -150,6 +141,7 @@
 		<div class="barLabel">3. 黄</div>
 		<div id="laps3">0</div>
 		<div id="multDisplay3">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -158,6 +150,7 @@
 		<div class="barLabel">4. 緑</div>
 		<div id="laps4">0</div>
 		<div id="multDisplay4">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -166,6 +159,7 @@
 		<div class="barLabel">5. 青緑</div>
 		<div id="laps5">0</div>
 		<div id="multDisplay5">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -174,6 +168,7 @@
 		<div class="barLabel">6. シアン</div>
 		<div id="laps6">0</div>
 		<div id="multDisplay6">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -182,6 +177,7 @@
 		<div class="barLabel">7. 青</div>
 		<div id="laps7">0</div>
 		<div id="multDisplay7">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -190,6 +186,7 @@
 		<div class="barLabel">8. 紫</div>
 		<div id="laps8">0</div>
 		<div id="multDisplay8">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
@@ -198,14 +195,36 @@
 		<div class="barLabel">9. ピンク</div>
 		<div id="laps9">0</div>
 		<div id="multDisplay9">1</div>
+		<span class="rightMark">×</span>
 	</span>
 	<span>
 		<div class="barParent">
 			<div id="bar10"></div>
 		</div>
 		<div class="barLabel">10. 白</div>
-		<div id="laps10">90</div>
+		<div id="laps10">0</div>
 		<div id="multDisplay10">1</div>
+		<span class="rightMark">×</span>
+	</span>
+	<span>
+		<div class="barLabel" style="grid-row: 2/3;">P.倍率</div>
+		<div style="grid-row: 3/4;">---</div>
+		<div id="pMultDisplay">1</div>
+		<span class="rightMark">=</span>
+	</span>
+	<span>
+		<div class="barLabel" style="grid-row: 2/3;">合計</div>
+		<div id="lapsSumDisplay" style="grid-row: 3/4;">0</div>
+		<div id="allMultDisplay1" style="grid-row: 4/5;">1</div>
+	</span>
+
+	<span style="position: relative; grid-column: 3/4;">
+		<span id="allMultDisplay2">1</span>
+		<sup id="pExpDisplay">1</sup>
+		<span class="rightMark">=</span>
+	</span>
+	<span id="getScoreDisplay">
+		1/rev
 	</span>
 </div>
 
