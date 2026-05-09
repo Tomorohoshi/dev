@@ -1,5 +1,11 @@
-let cookies = 0;
+let cookies = 0n;
 let bytes = 0n;
+let bytesDecimal = 0;
+let eachCookieByteIncrease = 1n;
+let animationStartedTime = null; // アニメーションが開始した時間
+let lastTime = 0; // 更新用 最後に更新した時間
+const UPDATE_INTERVAL = 1000 / 60; // 更新頻度 60fpsで更新
+
 const UNIT = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "RB", "QB"];
 const BINARY_UNIT = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB", "RiB", "QiB"];
 
@@ -61,6 +67,29 @@ function update(val, id) {
 	void target.offsetWidth; // リフレッシュ
 	target.classList.add("valChanged");
 }
+
+function animationFrame(currentTime) {
+	if (!animationStartedTime) {
+		animationStartedTime = currentTime;
+		lastTime = currentTime;
+	}
+
+	const delta = currentTime - lastTime;
+	if (delta >= UPDATE_INTERVAL) {
+		lastTime = currentTime - (delta % UPDATE_INTERVAL);
+		const bytesIncreasePerSec = cookies * eachCookieByteIncrease;
+		bytes *= 1000n; // /1000する前の値を加えるので、元の値を*1000する
+		bytes += bytesIncreasePerSec * BigInt(Math.round(delta)); // 小数部分が消えてしまうので、/1000は後でやる
+		bytesDecimal += bytes.toString().slice(-3) / 1000; // 小数部分は別に保存
+		bytes /= 1000n; // /1000する
+		bytes += BigInt(Math.floor(bytesDecimal)); // 小数部分の整数部分に繰り上がった部分を足す
+		bytesDecimal = bytesDecimal % 1; // 小数部分だけにする
+	}
+
+	requestAnimationFrame(animationFrame);
+}
+
+requestAnimationFrame(animationFrame);
 
 el("cookieAgree").addEventListener("change", function() {
 	const isChecked = this.checked;
