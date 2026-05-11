@@ -4,6 +4,26 @@ let bytesDecimal = 0;
 let eachCookieByteIncrease = 1n;
 let animationStartedTime = null; // アニメーションが開始した時間
 let lastTime = 0; // 更新用 最後に更新した時間
+let upgradeData = [
+	{
+		name: "dataMult",
+		level: 1,
+		maxLevel: Infinity,
+		value: 1,
+		cost: 100n,
+		valIncrease: .1,
+		costIncrease: ["*", 1.1]
+	},
+	{
+		name: "agreeChecked",
+		level: 0,
+		maxLevel: 200,
+		value: 0,
+		cost: 10n,
+		valIncrease: .5,
+		costIncrease: ["*", 1.25]
+	}
+];
 const UPDATE_INTERVAL = 1000 / 60; // 更新頻度 60fpsで更新
 
 const UNIT = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "RB", "QB"];
@@ -42,11 +62,15 @@ function load(key) {
 
 /** この関数は、表示する値を更新します
  * @param {number} val 更新先の値
- * @param {string} id 値を表示する要素のID
+ * @param {string} id 更新する要素のID、またはクエリ
+ * @param {boolean} doAnimation アニメーションをするかどうか
  */
-function update(val, id) {
-	const target = el(id);
+function update(val, id, doAnimation=true) {
+	const target = (id[0] == "#") ? query(id) : el(id);
+	if(target.innerHTML == val) return; // すでに同じ値なら更新しない
 	target.innerHTML = val;
+
+	if(!doAnimation) return;
 	target.classList.remove("valChanged");
 	void target.offsetWidth; // リフレッシュ
 	target.classList.add("valChanged");
@@ -55,25 +79,30 @@ function update(val, id) {
 /** この関数は、bytesに単位を付け、表示します
  * @param {string} id bytesを表示する要素のID
 */
-function byteUpdate(id) {
-	const beforeResult = el(id).innerHTML;
-	let val = bytes;
+
+function byteConvert(val=bytes) {
+	let result = val;
 	let dividedTimes = 0;
-	let result = null;
-	while(val >= 1024) { // 何回割れるか数える
+	while(result >= 1000) { // 何回割れるか数える
 		dividedTimes++;
-		val /= 1000n;
+		result /= 1000n;
 	}
-	val = bytes;
+	result = val;
 	if(dividedTimes == 0) {
 		result = val + UNIT[0];
 	} else {
-		for(let i=0;i<dividedTimes-1;i++) {val /= 1000n} // 数値型にするときに小数を残すために1回少なく割る
-		val = Number(val) / 1000; // 数値型に変換して最後の1回を割る
-		val = val.toFixed(2);
-		result = val + UNIT[dividedTimes];
+		for(let i=0;i<dividedTimes-1;i++) {result /= 1000n} // 数値型にするときに小数を残すために1回少なく割る
+		result = Number(result) / 1000; // 数値型に変換して最後の1回を割る
+		result = result.toFixed(2);
+		result = result + UNIT[dividedTimes];
 	}
-	if(beforeResult != result) update(result, id);
+	return result;
+}
+
+function byteUpdate(id) {
+	const beforeResult = el(id).innerHTML;
+	let converted = byteConvert(bytes);
+	if(beforeResult != converted) update(converted, id);
 }
 
 function animationFrame(currentTime) {
@@ -95,7 +124,6 @@ function animationFrame(currentTime) {
 		bytes += BigInt(Math.floor(bytesDecimal)); // 小数部分の整数部分に繰り上がった部分を足す
 		bytesDecimal = bytesDecimal % 1; // 小数部分だけにする
 
-		console.log(bytes.toString().slice(-3));
 		byteUpdate("byteCount");
 	}
 
@@ -104,10 +132,42 @@ function animationFrame(currentTime) {
 
 requestAnimationFrame(animationFrame);
 
+
+function buy(upgradeIndex, times) {
+	const upgrade = upgradeData[upgradeIndex];
+	changeVal: for(let i=0;i<times;i++) {
+		if(bytes >= upgrade.cost && upgrade.level < upgrade.maxLevel) {
+			bytes -= upgrade.cost;
+			upgrade.level++;
+			upgrade.value += upgrade.valIncrease;
+			switch(update.costIncrease[0]) {
+				case "+":
+					upgrade.cost += BigInt(upgrade.costIncrease[1]);
+					break;
+				case "*":
+						const factorDecimalLength = upgrade.costIncrease[1].toString().split(".")[1].length; // 小数点以下の桁数
+						upgrade.cost *= 10n ** BigInt(factorDecimalLength); // BigIntで小数を計算するために10^桁数倍する
+						upgrade.cost *= BigInt(upgrade.costIncrease[1]) * (10n ** BigInt(factorDecimalLength)); // 小数部分を計算
+						upgrade.cost /= 10n ** BigInt(factorDecimalLength); // 小数点以下の桁数を戻す(切り捨てる)
+						break;
+				default: break;
+			}
+		} else break changeVal;
+	}
+	update(upgrade.level, `#${upgrade.name} .level`);
+	update(upgrade.value.toFixed(1), `#${upgrade.name} .nowVal`);
+	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${upgrade.name} .nextVal`);
+	update(byteConvert(upgrade.cost), `#${upgrade.name} .cost`);
+}
+
+el("dataMult").onclick = function() {
+	buy(0, 1);
+}
+
 el("cookieAgree").addEventListener("change", function() {
 	const isChecked = this.checked;
 	query("#cookieBts button", true).forEach(bt => bt.disabled = !isChecked);
-})
+});
 
 query("#cookieBts button", true).forEach(bt => {
 	bt.onclick = () => {
@@ -121,4 +181,4 @@ query("#cookieBts button", true).forEach(bt => {
 		el("cookieAgree").checked = false;
 		query("#cookieBts button", true).forEach(bt => bt.disabled = true);
 	}
-})
+});

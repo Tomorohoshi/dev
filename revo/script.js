@@ -166,9 +166,11 @@ const UPDATE_INTERVAL = 1000 / 60;
 
 function el(id) {return document.getElementById(id)}
 function query(query, isAll=false) {return isAll ? document.querySelectorAll(query) : document.querySelector(query)}
-function update(val, id) {
+
+function update(val, id, suffix="", doAnimation=true) {
 	const target = el(id);
-	target.innerHTML = val;
+	target.innerHTML = val + suffix;
+	if(!doAnimation) return;
 	target.classList.remove("valChanged");
 	void target.offsetWidth; // リフレッシュ
 	target.classList.add("valChanged");
@@ -188,13 +190,11 @@ function calcMult() {
 		allMult *= targetData.mult;
 	}
 	allMult *= globalData.pMult;
-	allMult = Math.round(allMult * 100) / 100;
-	update(allMult, "allMultDisplay1");
-	update(allMult, "allMultDisplay2");
+	update(allMult.toFixed(2), "allMultDisplay1");
+	update(allMult.toFixed(2), "allMultDisplay2");
 
 	getScore = allMult ** globalData.pExp;
-	getScore = Math.round(getScore * 100) / 100;
-	update(getScore + "/rev", "getScoreDisplay");
+	update(getScore.toFixed(2), "getScoreDisplay", "/rev");
 }
 
 for(let i=0;i<data.length;i++) {
@@ -217,7 +217,7 @@ el("gameSpeedMult").addEventListener("input", function() {
 });
 el("pMult").addEventListener("input", function() {
 	globalData.pMult = Number(this.value);
-	update(globalData.pMult, "pMultDisplay");
+	update(globalData.pMult.toFixed(2), "pMultDisplay");
 });
 el("pExp").addEventListener("input", function() {
 	globalData.pExp = Number(this.value);
@@ -250,7 +250,7 @@ function animationFrame(currentTime) {
 	spendTime += delta;
 	spendTime = Math.round(spendTime * 100) / 100;
 	const spendTimePadded = spendTime.toString().padEnd(spendTime.toString().split(".")[0].length + 3, "0");
-	update(spendTimePadded + "秒プレイ", "spendTimeDisplay");
+	update(spendTimePadded + "秒プレイ", "spendTimeDisplay", false);
 	if(delta >= UPDATE_INTERVAL / 1000) {
 		lastTime = currentTime - (delta % UPDATE_INTERVAL);
 
