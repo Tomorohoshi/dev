@@ -133,21 +133,20 @@ function animationFrame(currentTime) {
 requestAnimationFrame(animationFrame);
 
 
-function buy(upgradeIndex, times) {
+function buy(upgradeIndex, times=1) {
 	const upgrade = upgradeData[upgradeIndex];
 	changeVal: for(let i=0;i<times;i++) {
 		if(bytes >= upgrade.cost && upgrade.level < upgrade.maxLevel) {
 			bytes -= upgrade.cost;
 			upgrade.level++;
 			upgrade.value += upgrade.valIncrease;
-			switch(update.costIncrease[0]) {
+			switch(upgrade.costIncrease[0]) {
 				case "+":
 					upgrade.cost += BigInt(upgrade.costIncrease[1]);
 					break;
 				case "*":
 						const factorDecimalLength = upgrade.costIncrease[1].toString().split(".")[1].length; // 小数点以下の桁数
-						upgrade.cost *= 10n ** BigInt(factorDecimalLength); // BigIntで小数を計算するために10^桁数倍する
-						upgrade.cost *= BigInt(upgrade.costIncrease[1]) * (10n ** BigInt(factorDecimalLength)); // 小数部分を計算
+						upgrade.cost *= BigInt(upgrade.costIncrease[1].toString().replace(".", "")); // 小数部分を計算
 						upgrade.cost /= 10n ** BigInt(factorDecimalLength); // 小数点以下の桁数を戻す(切り捨てる)
 						break;
 				default: break;

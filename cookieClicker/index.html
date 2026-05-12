@@ -43,7 +43,7 @@
 			<span id="byteCount">0B</span>
 			のデータを使用
 		</div>
-		<button id="dataMult">
+		<button id="dataMult" onclick="buy(0)">
 			<span class="icon"><img src="data/plus.svg" width="70"></span>
 			<span class="text">
 				<span>
@@ -60,7 +60,7 @@
 				</div>
 			</span>
 		</button>
-		<button id="agreeChecked">
+		<button id="agreeChecked" onclick="buy(1)">
 			<span class="icon"><img src="data/checkbox.svg" width="70"></span>
 			<span class="text">
 				<span>
@@ -69,9 +69,9 @@
 				</span>
 				<div>
 					<span>
-						<span>0.0</span>%
+						<span class="nowVal">0.0</span>%
 						→
-						<span>0.2</span>%
+						<span class="nextVal">0.2</span>%
 					</span>
 					<span class="cost"><span>10</span>B を消費</span>
 				</div>
