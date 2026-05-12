@@ -76,6 +76,19 @@ function update(val, id, doAnimation=true) {
 	target.classList.add("valChanged");
 }
 
+function shopUpdate(index) {
+	const upgrade = upgradeData[index];
+	update(upgrade.level, `#${upgrade.name} .level`);
+	update(upgrade.value.toFixed(1), `#${upgrade.name} .nowVal`);
+	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${upgrade.name} .nextVal`);
+	update(byteConvert(upgrade.cost), `#${upgrade.name} .cost`);
+	if(bytes >= upgrade.cost) {
+		el(upgrade.name).style.opacity = "1";
+	} else {
+		el(upgrade.name).style.opacity = ".5";
+	}
+}
+
 /** この関数は、bytesに単位を付け、表示します
  * @param {string} id bytesを表示する要素のID
 */
@@ -99,12 +112,6 @@ function byteConvert(val=bytes) {
 	return result;
 }
 
-function byteUpdate(id) {
-	const beforeResult = el(id).innerHTML;
-	let converted = byteConvert(bytes);
-	if(beforeResult != converted) update(converted, id);
-}
-
 function animationFrame(currentTime) {
 	if (!animationStartedTime) {
 		animationStartedTime = currentTime;
@@ -124,7 +131,15 @@ function animationFrame(currentTime) {
 		bytes += BigInt(Math.floor(bytesDecimal)); // 小数部分の整数部分に繰り上がった部分を足す
 		bytesDecimal = bytesDecimal % 1; // 小数部分だけにする
 
-		byteUpdate("byteCount");
+		const beforeResult = el("byteCount").innerHTML;
+		let converted = byteConvert(bytes);
+		if(beforeResult != converted) {
+			update(converted, "byteCount");
+			for(let i=0;i<upgradeData.length;i++) {
+				const update = upgradeData[i];
+				shopUpdate(i);
+			}
+		}
 	}
 
 	requestAnimationFrame(animationFrame);
@@ -153,10 +168,6 @@ function buy(upgradeIndex, times=1) {
 			}
 		} else break changeVal;
 	}
-	update(upgrade.level, `#${upgrade.name} .level`);
-	update(upgrade.value.toFixed(1), `#${upgrade.name} .nowVal`);
-	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${upgrade.name} .nextVal`);
-	update(byteConvert(upgrade.cost), `#${upgrade.name} .cost`);
 }
 
 el("dataMult").onclick = function() {
