@@ -13,7 +13,7 @@ let upgradeData = [
 		value: 1,
 		cost: 100n,
 		valIncrease: .1,
-		costIncrease: ["*", 1.1]
+		costIncrease: ["*", 1.1],
 	},
 	{
 		name: "agreeChecked",
@@ -62,9 +62,11 @@ function load(key) {
 }
 
 /** この関数は、BigInt型*小数を計算する関数です。
+ * @param {bigint} [bigVal=1n] 被乗数(BigInt型)
+ * @param {number} [val2=1] かける数
  */
-function timesBigInt(bigVal=1n, val2=1) {
-	const factorDecimalLength = val2.toString().split(".")[1].length;
+function multipleBigInt(bigVal=1n, val2=1) {
+	const factorDecimalLength = (val2.toString().includes(".")) ? val2.toString().split(".")[1].length : 0;
 	let result = bigVal;
 	result *= BigInt(val2.toString().replace(".", ""));
 	result /= 10n ** BigInt(factorDecimalLength);
@@ -132,11 +134,11 @@ function animationFrame(currentTime) {
 	const delta = currentTime - lastTime;
 	if (delta >= UPDATE_INTERVAL) {
 		const beforeBytes = bytes;
-		const allIncreasePerSec = cookies * increasePerSec;
+		const allIncreasePerSec = (cookies * increasePerSec) + multipleBigInt(cookies, increasePerSecDecimal);
 		lastTime = currentTime - (delta % UPDATE_INTERVAL);
 		bytes *= 1000n; // /1000する前の値を加えるので、元の値を*1000する
 		bytes += BigInt(Math.round(bytesDecimal * 1000)); // 3桁までの小数は格納する
-		bytes += bytesIncreasePerSec * BigInt(Math.round(delta)); // 小数部分が消えてしまうので、/1000は後でやる
+		bytes += allIncreasePerSec * BigInt(Math.round(delta)); // 小数部分が消えてしまうので、/1000は後でやる
 		bytesDecimal = bytes.toString().slice(-3) / 1000; // 小数部分は別に保存
 		bytes /= 1000n; // /1000する
 		bytes += BigInt(Math.floor(bytesDecimal)); // 小数部分の整数部分に繰り上がった部分を足す
@@ -171,7 +173,7 @@ function buy(upgradeIndex, times=1) {
 					upgrade.cost += BigInt(upgrade.costIncrease[1]);
 					break;
 				case "*":
-					upgrade.cost = timesBigInt(upgrade.cost, upgrade.costIncrease[1]);
+					upgrade.cost = multipleBigInt(upgrade.cost, upgrade.costIncrease[1]);
 						break;
 				default: break;
 			}
