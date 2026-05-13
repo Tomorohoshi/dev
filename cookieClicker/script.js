@@ -1,7 +1,8 @@
 let cookies = 0n;
 let bytes = 0n;
 let bytesDecimal = 0;
-let eachCookieByteIncrease = 1n;
+let increasePerSec = 1n;
+let increasePerSecDecimal = 0;
 let animationStartedTime = null; // アニメーションが開始した時間
 let lastTime = 0; // 更新用 最後に更新した時間
 let upgradeData = [
@@ -60,6 +61,16 @@ function load(key) {
 	return value ? value[2] : null;
 }
 
+/** この関数は、BigInt型*小数を計算する関数です。
+ */
+function timesBigInt(bigVal=1n, val2=1) {
+	const factorDecimalLength = val2.toString().split(".")[1].length;
+	let result = bigVal;
+	result *= BigInt(val2.toString().replace(".", ""));
+	result /= 10n ** BigInt(factorDecimalLength);
+	return result;
+}
+
 /** この関数は、表示する値を更新します
  * @param {number} val 更新先の値
  * @param {string} id 更新する要素のID、またはクエリ
@@ -83,9 +94,9 @@ function shopUpdate(index) {
 	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${upgrade.name} .nextVal`);
 	update(byteConvert(upgrade.cost), `#${upgrade.name} .cost`);
 	if(bytes >= upgrade.cost) {
-		el(upgrade.name).style.opacity = "1";
+		el(upgrade.name).style.filter = "brightness(1)";
 	} else {
-		el(upgrade.name).style.opacity = ".5";
+		el(upgrade.name).style.filter = "brightness(.7)";
 	}
 }
 
@@ -121,7 +132,7 @@ function animationFrame(currentTime) {
 	const delta = currentTime - lastTime;
 	if (delta >= UPDATE_INTERVAL) {
 		const beforeBytes = bytes;
-		const bytesIncreasePerSec = cookies * eachCookieByteIncrease;
+		const allIncreasePerSec = cookies * increasePerSec;
 		lastTime = currentTime - (delta % UPDATE_INTERVAL);
 		bytes *= 1000n; // /1000する前の値を加えるので、元の値を*1000する
 		bytes += BigInt(Math.round(bytesDecimal * 1000)); // 3桁までの小数は格納する
@@ -160,9 +171,7 @@ function buy(upgradeIndex, times=1) {
 					upgrade.cost += BigInt(upgrade.costIncrease[1]);
 					break;
 				case "*":
-						const factorDecimalLength = upgrade.costIncrease[1].toString().split(".")[1].length; // 小数点以下の桁数
-						upgrade.cost *= BigInt(upgrade.costIncrease[1].toString().replace(".", "")); // 小数部分を計算
-						upgrade.cost /= 10n ** BigInt(factorDecimalLength); // 小数点以下の桁数を戻す(切り捨てる)
+					upgrade.cost = timesBigInt(upgrade.cost, upgrade.costIncrease[1]);
 						break;
 				default: break;
 			}

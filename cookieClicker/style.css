@@ -129,8 +129,7 @@ body {
 		margin: 5px 10px;
 		padding: 0;
 		overflow: hidden;
-		opacity: .5; /* 初期値 */
-		--beforeWidth: 0%; /* before疑似要素の幅 */
+		filter: brightness(.7); /* 初期値 */
 
 		&>* {
 			background-color: #dfc;
@@ -167,7 +166,7 @@ body {
 
 #byteDisplay {
 	width: 100%;
-	padding: 10px 0;
+	padding: 10px 5px;
 	text-align: center;
 	font-size: 1.3em;
 	border-bottom: 3px solid #38a;
