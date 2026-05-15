@@ -46,37 +46,54 @@
 			<span id="byteCount">0B</span>
 			のデータを使用
 		</div>
+				<button id="agreeChecked" onclick="buy('agreeChecked')" disabled>
+			<span class="icon"><img src="data/checkbox.svg" width="70"></span>
+			<span class="text">
+				<span>
+					<span>同意がチェック済みの確率</span>
+					<span>Lv. <span class="level"></span></span>
+				</span>
+				<div>
+					<span>
+						<span class="nowVal"></span>%
+						→
+						<span class="nextVal"></span>%
+					</span>
+					<span><span class="cost"></span> を消費</span>
+				</div>
+			</span>
+		</button>
 		<button id="dataMult" onclick="buy('dataMult')" disabled>
 			<span class="icon"><img src="data/plus.svg" width="70"></span>
 			<span class="text">
 				<span>
 					<span>使用するデータの量を増加</span>
-					<span>Lv. <span class="level">1</span></span>
+					<span>Lv. <span class="level"></span></span>
 				</span>
 				<div>
 					<span>
-						*<span class="nowVal">1.0</span>
+						*<span class="nowVal"></span>
 						→
-						*<span class="nextVal">1.1</span>
+						*<span class="nextVal"></span>
 					</span>
-					<span><span class="cost">100B</span> を消費</span>
+					<span><span class="cost"></span> を消費</span>
 				</div>
 			</span>
 		</button>
-		<button id="agreeChecked" onclick="buy('agreeChecked')" disabled>
-			<span class="icon"><img src="data/checkbox.svg" width="70"></span>
+		<button id="doubleCookie" onclick="buy('doubleCookie')" disabled>
+			<span class="icon"><img src="data/double.svg"></span>
 			<span class="text">
 				<span>
-					<span>同意がチェック済みの確率</span>
-					<span>Lv. <span class="level">0</span></span>
+					<span>Cookie獲得量2倍の確率</span>
+					<span>Lv. <span class="level"></span></span>
 				</span>
 				<div>
 					<span>
-						<span class="nowVal">0.0</span>%
+						<span class="nowVal"></span>%
 						→
-						<span class="nextVal">0.5</span>%
+						<span class="nextVal"></span>%
 					</span>
-					<span><span class="cost">10B</span> を消費</span>
+					<span><span class="cost"></span> を消費</span>
 				</div>
 			</span>
 		</button>

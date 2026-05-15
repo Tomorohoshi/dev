@@ -6,20 +6,28 @@ let increasePerSecDecimal = 0;
 let animationStartedTime = null; // アニメーションが開始した時間
 let lastTime = 0; // 更新用 最後に更新した時間
 let upgradeData = {
+	agreeChecked: {
+		level: 0,
+		maxLevel: 200,
+		value: 0,
+		cost: 20n,
+		valIncrease: .5,
+		costIncrease: ["*", 1.25]
+	},
 	dataMult: {
-		level: 1,
+		level: 0,
 		maxLevel: Infinity,
 		value: 1,
 		cost: 100n,
 		valIncrease: .1,
 		costIncrease: ["*", 1.1],
 	},
-	agreeChecked: {
+	doubleCookie: {
 		level: 0,
-		maxLevel: 200,
+		maxLevel: Infinity,
 		value: 0,
-		cost: 10n,
-		valIncrease: .5,
+		cost: 200n,
+		valIncrease: 1,
 		costIncrease: ["*", 1.25]
 	}
 };
@@ -27,6 +35,8 @@ const UPDATE_INTERVAL = 1000 / 60; // 更新頻度 60fpsで更新
 
 const UNIT = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "RB", "QB"];
 const BINARY_UNIT = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB", "RiB", "QiB"];
+
+for(const key in upgradeData) shopUpdate(key, false);
 
 /** この関数は、idから要素を取得します
  * @param {string} id 要素のID
@@ -78,7 +88,7 @@ function multipleBigInt(bigVal=1n, val2=1) {
  */
 function update(val, id, doAnimation=true) {
 	const target = (id[0] == "#") ? query(id) : el(id);
-	if(target.innerHTML == val) return; // すでに同じ値なら更新しない
+	if(target.innerHTML === val) return; // すでに同じ値なら更新しない
 	target.innerHTML = val;
 
 	if(!doAnimation) return;
@@ -87,12 +97,12 @@ function update(val, id, doAnimation=true) {
 	target.classList.add("valChanged");
 }
 
-function shopUpdate(name) {
+function shopUpdate(name, doAnimation=true) {
 	const upgrade = upgradeData[name];
-	update(upgrade.level, `#${name} .level`);
-	update(upgrade.value.toFixed(1), `#${name} .nowVal`);
-	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${name} .nextVal`);
-	update(byteConvert(upgrade.cost), `#${name} .cost`);
+	update(upgrade.level, `#${name} .level`, doAnimation);
+	update(upgrade.value.toFixed(1), `#${name} .nowVal`, doAnimation);
+	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${name} .nextVal`, doAnimation);
+	update(byteConvert(upgrade.cost), `#${name} .cost`, doAnimation);
 	el(name).disabled = !(bytes >= upgrade.cost);
 }
 
