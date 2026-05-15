@@ -5,9 +5,8 @@ let increasePerSec = 1n;
 let increasePerSecDecimal = 0;
 let animationStartedTime = null; // アニメーションが開始した時間
 let lastTime = 0; // 更新用 最後に更新した時間
-let upgradeData = [
-	{
-		name: "dataMult",
+let upgradeData = {
+	dataMult: {
 		level: 1,
 		maxLevel: Infinity,
 		value: 1,
@@ -15,8 +14,7 @@ let upgradeData = [
 		valIncrease: .1,
 		costIncrease: ["*", 1.1],
 	},
-	{
-		name: "agreeChecked",
+	agreeChecked: {
 		level: 0,
 		maxLevel: 200,
 		value: 0,
@@ -24,7 +22,7 @@ let upgradeData = [
 		valIncrease: .5,
 		costIncrease: ["*", 1.25]
 	}
-];
+};
 const UPDATE_INTERVAL = 1000 / 60; // 更新頻度 60fpsで更新
 
 const UNIT = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "RB", "QB"];
@@ -89,23 +87,22 @@ function update(val, id, doAnimation=true) {
 	target.classList.add("valChanged");
 }
 
-function shopUpdate(index) {
-	const upgrade = upgradeData[index];
-	update(upgrade.level, `#${upgrade.name} .level`);
-	update(upgrade.value.toFixed(1), `#${upgrade.name} .nowVal`);
-	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${upgrade.name} .nextVal`);
-	update(byteConvert(upgrade.cost), `#${upgrade.name} .cost`);
+function shopUpdate(name) {
+	const upgrade = upgradeData[name];
+	update(upgrade.level, `#${name} .level`);
+	update(upgrade.value.toFixed(1), `#${name} .nowVal`);
+	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${name} .nextVal`);
+	update(byteConvert(upgrade.cost), `#${name} .cost`);
 	if(bytes >= upgrade.cost) {
-		el(upgrade.name).style.filter = "brightness(1)";
+		el(name).style.filter = "brightness(1)";
 	} else {
-		el(upgrade.name).style.filter = "brightness(.7)";
+		el(name).style.filter = "brightness(.7)";
 	}
 }
 
 /** この関数は、bytesに単位を付け、表示します
  * @param {string} id bytesを表示する要素のID
 */
-
 function byteConvert(val=bytes) {
 	let result = val;
 	let dividedTimes = 0;
@@ -148,9 +145,9 @@ function animationFrame(currentTime) {
 		let converted = byteConvert(bytes);
 		if(beforeResult != converted) {
 			update(converted, "byteCount");
-			for(let i=0;i<upgradeData.length;i++) {
-				const update = upgradeData[i];
-				shopUpdate(i);
+			for(let i=0;i<Object.keys(upgradeData).length;i++) {
+				const upgradeKeys = Object.keys(upgradeData);
+				shopUpdate(upgradeKeys[i]);
 			}
 		}
 	}
@@ -182,7 +179,8 @@ function buy(upgradeIndex, times=1) {
 }
 
 el("dataMult").onclick = function() {
-	buy(0, 1);
+	buy("dataMult");
+	// increasePerSec = multipleBigInt(increasePerSec, upgradeData.dataMult.val);
 }
 
 el("cookieAgree").addEventListener("change", function() {
