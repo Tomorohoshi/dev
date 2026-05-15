@@ -36,7 +36,10 @@ const UPDATE_INTERVAL = 1000 / 60; // 更新頻度 60fpsで更新
 const UNIT = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "RB", "QB"];
 const BINARY_UNIT = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB", "RiB", "QiB"];
 
-for(const key in upgradeData) shopUpdate(key, false);
+for(const key in upgradeData) upgradeUpdate(key, false);
+update(cookies, "cookieCount", false);
+increasePerSecUpdate(false);
+update(cookies, "upgradeCookieCount", false);
 
 /** この関数は、idから要素を取得します
  * @param {string} id 要素のID
@@ -97,7 +100,11 @@ function update(val, id, doAnimation=true) {
 	target.classList.add("valChanged");
 }
 
-function shopUpdate(name, doAnimation=true) {
+/** この関数は、アップグレードの情報を更新します
+ * @param {string} name 更新するアップグレードの名前
+ * @param {boolean} doAnimation アニメーションをするかどうか
+ */
+function upgradeUpdate(name, doAnimation=true) {
 	const upgrade = upgradeData[name];
 	update(upgrade.level, `#${name} .level`, doAnimation);
 	update(upgrade.value.toFixed(1), `#${name} .nowVal`, doAnimation);
@@ -106,18 +113,32 @@ function shopUpdate(name, doAnimation=true) {
 	el(name).disabled = !(bytes >= upgrade.cost);
 }
 
-function increasePerSecUpdate() {
+/** この関数は、バイトの増加量の値を更新します
+ * @param {boolean} doAnimation アニメーションをするかどうか
+ */
+function increasePerSecUpdate(doAnimation=true) {
 	increasePerSec = multipleBigInt(1n, upgradeData.dataMult.value);
-	increasePerSecDecimal = 0 * upgradeData.dataMult.value; // 便宜上のため置いとく
+	increasePerSecDecimal = upgradeData.dataMult.value % 1; // 便宜上のため置いとく
+	increasePerSec += BigInt(Math.floor(increasePerSecDecimal));
+	increasePerSecDecimal %= 1;
+
+	let display;
+	if(increasePerSec <= 1000n && increasePerSecDecimal != 0) {
+		display = increasePerSec.toString();
+		display += increasePerSecDecimal.toFixed(2).toString().slice(1) + "B";
+	} else {
+		display = byteConvert(increasePerSec);
+	}
+	update(display, "perSecCount", doAnimation);
 }
 
-/** この関数は、bytesに単位を付け、表示します
+/** この関数は、値をバイト数とみなし、単位を付けます
  * @param {string} id bytesを表示する要素のID
-*/
+ */
 function byteConvert(val=bytes) {
 	let result = val;
 	let dividedTimes = 0;
-	while(result >= 1000) { // 何回割れるか数える
+	while(result >= 1000n) { // 何回割れるか数える
 		dividedTimes++;
 		result /= 1000n;
 	}
@@ -133,6 +154,9 @@ function byteConvert(val=bytes) {
 	return result;
 }
 
+/** この関数は、requestAnimationFrameで呼び出される、常に更新するための関数です
+ * @param {number} currentTime 現在時刻(ミリ秒)
+ */
 function animationFrame(currentTime) {
 	if (!animationStartedTime) {
 		animationStartedTime = currentTime;
@@ -158,7 +182,7 @@ function animationFrame(currentTime) {
 			update(converted, "byteCount");
 			for(let i=0;i<Object.keys(upgradeData).length;i++) {
 				const upgradeKeys = Object.keys(upgradeData);
-				shopUpdate(upgradeKeys[i]);
+				upgradeUpdate(upgradeKeys[i], false);
 			}
 		}
 	}
@@ -168,7 +192,10 @@ function animationFrame(currentTime) {
 
 requestAnimationFrame(animationFrame);
 
-
+/** この関数は、アップグレードを購入するための関数です
+ * @param {string} upgradeIndex アップグレードのインデックス
+ * @param {number} times 購入する回数
+ */
 function buy(upgradeIndex, times=1) {
 	const upgrade = upgradeData[upgradeIndex];
 	changeVal: for(let i=0;i<times;i++) {
@@ -187,6 +214,7 @@ function buy(upgradeIndex, times=1) {
 			}
 		} else break changeVal;
 	}
+	upgrade.value = Math.round(upgrade.value*1000)/1000;
 }
 
 el("dataMult").onclick = function() {
@@ -199,6 +227,7 @@ el("cookieAgree").addEventListener("change", function() {
 	query("#cookieBts button", true).forEach(bt => bt.disabled = !isChecked);
 });
 
+// Cookieが許可されたときの処理
 query("#cookieBts button", true).forEach(bt => {
 	bt.onclick = () => {
 		cookies++;

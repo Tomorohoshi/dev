@@ -38,6 +38,10 @@ body {
 
 #cookieCount {font-size: 1.7em;}
 
+#perSecCountParent {font-size: .8em;}
+
+#perSecCount {font-size: 1.4em;}
+
 #cookieSentence label {
 	display: block;
 	margin-top: 10px;

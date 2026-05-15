@@ -20,19 +20,24 @@
 	<div id="main">
 		<div id="display">
 			<div>
-				<span id="cookieCount">0</span>
+				<span id="cookieCount"></span>
 				個のクッキーを許可済み
 			</div>
-			<div>
-				<span><span id=""></span></span>
+			<div id="perSecCountParent">
+				<span>
+					<span id="perSecCount"></span>/Cookie/秒
+					
+				</span>
 			</div>
 		</div>
 		<div id="cookie">
 			<img src="data/info.svg" width="50">
 			<span id="cookieSentence">
 				当ページでは、サイトの利便性向上のためCookieを使用しています。
-				<label><input type="checkbox" id="cookieAgree">
-					<span>プライバシーポリシー</span>に同意する</label>
+				<label>
+					<input type="checkbox" id="cookieAgree">
+					<span>プライバシーポリシー</span>に同意する
+				</label>
 			</span>
 			<span id="cookieBts">
 				<button disabled>拒否しない</button>
@@ -42,7 +47,7 @@
 	</div>
 	<div id="upgrade">
 		<div id="byteDisplay">
-			<span id="upgradeCookieCount">0</span>個のクッキーが
+			<span id="upgradeCookieCount"></span>個のクッキーが
 			<span id="byteCount">0B</span>
 			のデータを使用
 		</div>
