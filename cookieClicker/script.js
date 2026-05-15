@@ -199,6 +199,12 @@ query("#cookieBts button", true).forEach(bt => {
 		void el("cookie").offsetWidth; // リフレッシュ
 		el("cookie").classList.add("cookieReload");
 		el("cookieAgree").checked = false;
-		query("#cookieBts button", true).forEach(bt => bt.disabled = true);
+
+		setTimeout(() => {
+			// アップグレードの値によってすでにチェックされているかどうかを決める
+			const isChecked = Math.random()*100 < upgradeData.agreeChecked.value;
+			el("cookieAgree").checked = isChecked;
+			query("#cookieBts button", true).forEach(bt => bt.disabled = !isChecked);
+		}, 40);
 	}
 });
