@@ -129,7 +129,12 @@ body {
 		margin: 5px 10px;
 		padding: 0;
 		overflow: hidden;
-		filter: brightness(.7); /* 初期値 */
+
+		&:disabled {
+			filter: brightness(.7); /* 初期値 */
+		}
+
+		* {color: black;}
 
 		&>* {
 			background-color: #dfc;

@@ -93,11 +93,12 @@ function shopUpdate(name) {
 	update(upgrade.value.toFixed(1), `#${name} .nowVal`);
 	update((upgrade.value+upgrade.valIncrease).toFixed(1), `#${name} .nextVal`);
 	update(byteConvert(upgrade.cost), `#${name} .cost`);
-	if(bytes >= upgrade.cost) {
-		el(name).style.filter = "brightness(1)";
-	} else {
-		el(name).style.filter = "brightness(.7)";
-	}
+	el(name).disabled = !(bytes >= upgrade.cost);
+}
+
+function increasePerSecUpdate() {
+	increasePerSec = multipleBigInt(1n, upgradeData.dataMult.value);
+	increasePerSecDecimal = 0 * upgradeData.dataMult.value; // 便宜上のため置いとく
 }
 
 /** この関数は、bytesに単位を付け、表示します
@@ -180,7 +181,7 @@ function buy(upgradeIndex, times=1) {
 
 el("dataMult").onclick = function() {
 	buy("dataMult");
-	// increasePerSec = multipleBigInt(increasePerSec, upgradeData.dataMult.val);
+	increasePerSecUpdate();
 }
 
 el("cookieAgree").addEventListener("change", function() {
