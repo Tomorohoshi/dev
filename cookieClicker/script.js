@@ -20,7 +20,7 @@ let upgradeData = {
 		value: 1,
 		cost: 100n,
 		valIncrease: .1,
-		costIncrease: ["*", 1.1],
+		costIncrease: ["*", 1.15],
 	},
 	doubleCookie: {
 		level: 0,
@@ -244,6 +244,15 @@ query("#cookieBts button", true).forEach(bt => {
 			const isChecked = Math.random()*100 < upgradeData.agreeChecked.value;
 			el("cookieAgree").checked = isChecked;
 			query("#cookieBts button", true).forEach(bt => bt.disabled = !isChecked);
-		}, 40);
+
+			const isDouble = Math.random()*100 < upgradeData.doubleCookie.value;
+			if(isDouble) {
+				// el("cookieNum").display = "flex";
+				el("cookieNum").style.opacity = 1;
+			} else {
+				// el("cookieNum").display = "none";
+				el("cookieNum").style.opacity = 0;
+			}
+		}, 400);
 	}
 });
