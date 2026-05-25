@@ -1,0 +1,40 @@
+body {margin: 0;}
+
+#heroSection {
+	position: relative;
+	width: 100vw;
+	height: 500px;
+	background-color: #6cf;
+}
+
+#field {
+	position: absolute;
+	bottom: 0;
+	width: 100vw;
+	height: 100px;
+	overflow: hidden;
+
+	span {
+		display: inline-block;
+		margin: 0;
+		width: 7px;
+		height: 100px;
+	}
+
+	span:nth-child(3n) {
+		background-color: #53b100;
+	}
+	span:not(:nth-child(3n)) {
+		background-color: #63c10b;
+	}
+}
+
+#fieldBackground {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 95px;
+	width: 100vw;
+	background-color: #63c10b;
+	z-index: -1;
+}
