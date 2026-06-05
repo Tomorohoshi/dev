@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-G3VRHWGPB7"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-G3VRHWGPB7');
+	</script>
+
+	<link rel="stylesheet" href="style.css">
+	<title>コラッツ予想を計算してみよう</title>
+</head>
+<body>
+	<h1>コラッツ予想を計算してみよう</h1>
+	<label>最初の値n: <input id="input" type="number" min="1" value="1"></label>
+	<button id="executeBt">実行</button>
+	<textarea id="output" readonly></textarea>
+	<p id="indexOutput">計算回数: </p>
+	<script src="script.js"></script>
+</body>
+
+</html>
