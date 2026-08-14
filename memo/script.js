@@ -171,10 +171,11 @@ document.addEventListener("DOMContentLoaded", () => { // ロード時にCookie�
 		cookies.forEach(cookie => {
 			const [cookieName, cookieValue] = cookie.split("=");
 			const isTitleCookie = Boolean(cookieName.split("Title")[1]); // キーに"Title"を含むか
+			let cookieMemoNum;
 			if(isTitleCookie) {
-				const cookieMemoNum = Number(cookieName.split("Title")[1].slice(4)); // "Title"の前の"memo"を除いた数字
+				cookieMemoNum = Number(cookieName.split("Title")[1].slice(4)); // "Title"の前の"memo"を除いた数字
 			} else {
-				const cookieMemoNum = cookieName.slice(4); // "memo"を除いた数字
+				cookieMemoNum = cookieName.slice(4); // "memo"を除いた数字
 			};
 			if(cookieMemoNum > memoCount) {
 				for(let i=memoCount; i<cookieMemoNum; i++) addMemo();
