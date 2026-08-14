@@ -169,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => { // ロード時にCookie�
 	if(document.cookie != "") {
 		const cookies = document.cookie.split("; ");
 		cookies.forEach(cookie => {
+			if(cookie.slice(0, 4) != "memo") continue;
 			const [cookieName, cookieValue] = cookie.split("=");
 			const isTitleCookie = Boolean(cookieName.split("Title")[1]); // キーに"Title"を含むか
 			let cookieMemoNum;
